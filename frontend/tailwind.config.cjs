@@ -5,7 +5,15 @@ module.exports = {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    colors: {
+			primary: "#FF8E72",
+			secondary: "#EB9486",
+			light: "#F7F7F7",
+			dark: "#312F2F",
+		}
   },
+	fontFamily: {
+		'ProximaNova': "ProximaNova"
+	},
   plugins: [],
 }
