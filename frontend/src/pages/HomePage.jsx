@@ -2,22 +2,28 @@ import React from "react";
 import Navbar from "../components/Navbar";
 import musician from "../assets/Musician.png"
 
-const BUTTON_CONTAINER = "bg-primary w-64 text-sm px-3 py-3 rounded-lg"
+const BUTTON_CONTAINER = "bg-primary w-[400px] text-xl px-4 py-3 rounded-lg hover:text-dark ease-in duration-300 font-bold"
+
+const handleClick = () => {
+	console.log("venues page");
+}
 
 const HomePage = () => {
 	return (
 		<>
 			<div className="bg-dark text-white min-h-screen items-center">
 				<Navbar/>
-				<div className="flex flex-row justify-center mt-36 space-x-24">
-					<img className=" " src={musician}/>
+				<div className="flex flex-row justify-center mt-36 space-x-36">
+					<img className="w-96" src={musician}/>
 					<div className="flex flex-col space-y-4">
-						<p className="w-[350px] font-thin text-xl">
+						<p className="w-[500px] font-thin text-2xl">
 							Welcome to ConcertCopper, your one 
 							stop shop for purchasing concert tickets
 							for your favourite artists!
 						</p>
-						<button className={BUTTON_CONTAINER}>SEARCH AVAILABLE VENUES</button>
+						<button className={BUTTON_CONTAINER} onClick={() => handleClick()}>
+							SEARCH AVAILABLE VENUES
+						</button>
 					</div>
 				</div>
 			</div>
