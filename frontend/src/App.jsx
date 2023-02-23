@@ -1,7 +1,11 @@
 import React from "react";
-import HomePage from "./pages/HomePage";
 import Navbar from "./components/Navbar";
-import  {Routes, Route, BrowserRouter} from "react-router-dom";
+import HomePage from "./pages/HomePage";
+import ClientVenues from "./pages/ClientVenues";
+import AdminVenue from "./pages/AdminVenues";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import { Routes, Route, BrowserRouter } from "react-router-dom";
 
 const App = () => {
   return (
@@ -10,6 +14,10 @@ const App = () => {
 				<Navbar/>
 				<Routes>
 					<Route path="/" element={<HomePage/>}/>
+					<Route path="/venues" element={<ClientVenues/>}/>
+					<Route path="/admin/venues" element={<AdminVenue/>}/>
+					<Route path="/login" element={<Login/>}/>
+					<Route path="/register" element={<Register/>}/>
 				</Routes>
 			</BrowserRouter>
     </div>
