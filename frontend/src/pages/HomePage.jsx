@@ -1,14 +1,12 @@
-import React from "react";
-import Navbar from "../components/Navbar";
+import { useContext } from "react";
 import musician from "../assets/Musician.png"
+import { useNavigate } from "react-router-dom";
 
 const BUTTON_CONTAINER = "bg-primary w-[400px] text-xl px-4 py-3 rounded-lg hover:text-dark ease-in duration-300 font-bold"
 
-const handleClick = () => {
-	console.log("venues page");
-}
-
 const HomePage = () => {
+	const navigate = useNavigate();
+
 	return (
 		<>
 			<div className="bg-dark text-white min-h-screen items-center">
@@ -20,7 +18,7 @@ const HomePage = () => {
 							stop shop for purchasing concert tickets
 							for your favourite artists!
 						</p>
-						<button className={BUTTON_CONTAINER} onClick={() => handleClick()}>
+						<button className={BUTTON_CONTAINER} onClick={() => navigate("/venues")}>
 							SEARCH AVAILABLE VENUES
 						</button>
 					</div>
