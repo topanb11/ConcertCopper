@@ -11,7 +11,7 @@ const Navbar = () => {
 	return (
 		<div className="bg-primary flex flex-row text-white justify-between items-center px-10 py-2 rounded-b-lg">
 			<img className="w-24" src={Logo}/>
-			<div className="flex flec-row space-x-12">
+			<div className="flex flex-row space-x-12">
 				<h2 className={NAVBAR_HEADER} onClick={() => handleClick("account")}>CREATE ACCOUNT</h2>
 				<h2 className={NAVBAR_HEADER} onClick={() => handleClick("log in")}>LOG IN</h2>
 			</div>
