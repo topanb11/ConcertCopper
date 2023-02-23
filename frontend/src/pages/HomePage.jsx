@@ -12,7 +12,7 @@ const HomePage = () => {
 	return (
 		<>
 			<div className="bg-dark text-white min-h-screen items-center">
-				<div className="flex flex-row justify-center pt-36 space-x-36">
+				<div className="flex flex-row justify-center pt-64 space-x-36">
 					<img className="w-96" src={musician}/>
 					<div className="flex flex-col space-y-4">
 						<p className="w-[500px] font-thin text-2xl">
