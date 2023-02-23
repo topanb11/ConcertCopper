@@ -19,8 +19,8 @@ const Navbar = () => {
 			<div className="flex flex-row space-x-12">
 				<h2 className={NAVBAR_HEADER} onClick={() => handleClick("/register")}>CREATE ACCOUNT</h2>
 				{user ? 
-					<h2 className={NAVBAR_HEADER} onClick={() => handleClick("/login")}>LOG IN</h2> : 
-					<h2 className={NAVBAR_HEADER} onClick={console.log("signout")}>SIGN OUT</h2>
+					<h2 className={NAVBAR_HEADER} onClick={console.log("signout")}>SIGN OUT</h2> :
+					<h2 className={NAVBAR_HEADER} onClick={() => handleClick("/login")}>LOG IN</h2> 
 				}
 			</div>
 		</div>
