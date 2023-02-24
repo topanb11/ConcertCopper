@@ -1,7 +1,11 @@
+import Checkout from "../components/Checkout";
+
 function ClientVenues() {
 	return ( 
-		<div className="bg-dark min-h-screen pt-36 text-white">
-			<h1>client venues</h1>
+		<div>
+			{/* Venues will load here and pressing on one will open the checkout */}
+			{/* If you're working on the venues page, just comment out the <Checkout /> component */}
+			<Checkout/>
 		</div>
 	 );
 }
