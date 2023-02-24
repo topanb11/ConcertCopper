@@ -3,7 +3,7 @@ import Logo from "../assets/ConcertCopper.png";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../context/UserContext";
 
-const NAVBAR_HEADER = "text-2xl font-thin font-semibold hover:cursor-pointer hover:text-dark ease-in duration-300";
+const NAVBAR_HEADER = "text-2xl font-semibold hover:cursor-pointer hover:text-dark ease-in duration-300";
 
 const Navbar = () => {
 	const navigate = useNavigate();
@@ -19,7 +19,7 @@ const Navbar = () => {
 			<div className="flex flex-row space-x-12">
 				<h2 className={NAVBAR_HEADER} onClick={() => handleClick("/register")}>CREATE ACCOUNT</h2>
 				{user ? 
-					<h2 className={NAVBAR_HEADER} onClick={console.log("signout")}>SIGN OUT</h2> :
+					<h2 className={NAVBAR_HEADER} onClick={() => console.log("signout")}>SIGN OUT</h2> :
 					<h2 className={NAVBAR_HEADER} onClick={() => handleClick("/login")}>LOG IN</h2> 
 				}
 			</div>
