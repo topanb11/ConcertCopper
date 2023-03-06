@@ -7,7 +7,7 @@ const FORM_LABEL = "text-2xl text-dark/50 font-semibold";
 const FORM_CONTAINER = "flex flex-col gap-1";
 const FORM_FIELD = "h-10 font-semibold text-lg pl-1";
 
-function Checkout() {
+function CheckoutPage() {
   {/* Would pass in Venue as props and change text */}
 	const user = useContext(UserContext);
   const [email, setEmail] = useState("");
@@ -101,4 +101,4 @@ function Checkout() {
   );
 }
 
-export default Checkout;
+export default CheckoutPage;

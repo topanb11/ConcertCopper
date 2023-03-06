@@ -1,4 +1,4 @@
-function Reviews() {
+function ReviewPage() {
 	return (  
 		<h1>
 			Reviews
@@ -6,4 +6,4 @@ function Reviews() {
 	);
 }
 
-export default Reviews;
+export default ReviewPage;
