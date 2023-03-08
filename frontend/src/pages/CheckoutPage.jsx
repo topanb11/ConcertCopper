@@ -5,20 +5,33 @@ import { useContext } from "react";
 const HEADER = "text-3xl font-semibold";
 const FORM_LABEL = "text-2xl text-dark/50 font-semibold";
 const FORM_CONTAINER = "flex flex-col gap-1";
-const FORM_FIELD = "h-10 font-semibold text-lg pl-1";
+const FORM_FIELD = "h-10 font-semibold text-lg pl-1 border-2 border-dark/50";
 
 function CheckoutPage() {
   {/* Would pass in Venue as props and change text */}
 	const user = useContext(UserContext);
-  const [email, setEmail] = useState("");
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
+	const [checkout, setCheckout] = useState({
+		email: "",
+		firstName: "",
+		lastName: ""
+	});
+
+	const handleChange = (e) => {
+		setCheckout(prevState => {
+			return {
+				...prevState,
+				[e.target.name]: e.target.value
+			}
+		});
+	};
 
   const handleSubmit = () => {
+		// Replace with a POST API call later
+		
 		if (user) { // Logged in user is checking out
 			console.log(user);
 		} else { // Guest user is checking out
-			console.log(email, firstName, lastName);
+			console.log(checkout);
 		}
   };
 
@@ -48,28 +61,31 @@ function CheckoutPage() {
 						<div className={FORM_CONTAINER}>
 							<label className={FORM_LABEL}>Email</label>
 							<input
+								name="email"
 								className={FORM_FIELD}
 								type="text"
 								placeholder="Email"
-								onChange={(e) => setEmail(e.target.value)}
+								onChange={(e) => handleChange(e)}
 							/>
 						</div>
 						<div className={FORM_CONTAINER}>
 							<label className={FORM_LABEL}>First Name</label>
 							<input
+								name="firstName"
 								className={FORM_FIELD}
 								type="text"
 								placeholder="First Name"
-								onChange={(e) => setFirstName(e.target.value)}
+								onChange={(e) => handleChange(e)}
 							/>
 						</div>
 						<div className={FORM_CONTAINER}>
 							<label className={FORM_LABEL}>Last Name</label>
 							<input
+								name="lastName"
 								className={FORM_FIELD}
 								type="text"
 								placeholder="Last Name"
-								onChange={(e) => setLastName(e.target.value)}
+								onChange={(e) => handleChange(e)}
 							/>
 						</div>
 					</form> :
