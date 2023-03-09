@@ -7,9 +7,10 @@ module.exports = {
   theme: {
     colors: {
 			primary: "#FF8E72",
+			primaryDark: "#D17660",
 			secondary: "#EB9486",
 			white: "#F7F7F7",
-			dark: "#312F2F",
+			dark: "#312F2F"
 		}
   },
 	fontFamily: {

@@ -1,11 +1,12 @@
 import { React, useState, createContext, useMemo } from "react";
 import Navbar from "./components/Navbar";
-import HomePage from "./pages/HomePage";
-import ClientVenues from "./pages/ClientVenues";
-import AdminVenue from "./pages/AdminVenues";
-import Login from "./pages/Login";
-import Register from "./pages/Register";
 import { Routes, Route, BrowserRouter } from "react-router-dom";
+import HomePage from "./pages/HomePage";
+import ClientVenuesPage from "./pages/ClientVenuesPage";
+import LoginPage from "./pages/LoginPage";
+import RegisterPage from "./pages/RegisterPage";
+import CheckoutPage from "./pages/CheckoutPage";
+import ReviewPage from "./pages/ReviewPage";
 
 const App = () => {
 	const UserContext = createContext();
@@ -19,10 +20,11 @@ const App = () => {
 					<Navbar/>
 					<Routes>
 						<Route path="/" element={<HomePage/>}/>
-						<Route path="/venues" element={<ClientVenues/>}/>
-						<Route path="/admin/venues" element={<AdminVenue/>}/>
-						<Route path="/login" element={<Login/>}/>
-						<Route path="/register" element={<Register/>}/>
+						<Route path="/venues" element={<ClientVenuesPage/>}/>
+						<Route path="/login" element={<LoginPage/>}/>
+						<Route path="/register" element={<RegisterPage/>}/>
+						<Route path="/checkout/:venueId" element={<CheckoutPage/>}/>
+						<Route path="/reviews/:venueId" element={<ReviewPage/>}/>
 					</Routes>
 				</UserContext.Provider>
 			</BrowserRouter>
