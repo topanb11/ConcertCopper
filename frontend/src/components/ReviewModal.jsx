@@ -2,6 +2,7 @@ import { useState } from "react";
 import CloseIcon from '@mui/icons-material/Close';
 
 const FORM_LABEL = "font-semibold text-xl";
+const FORM_CONTAINER = "pl-2 border-2 border-dark/50 h-10";
 
 function ReviewModal({ toggleModal }) {
 	const [review, setReview] = useState({
@@ -9,6 +10,14 @@ function ReviewModal({ toggleModal }) {
 		review: "",
 		rating: 0
 	});
+
+	const handleChange = (e) => {
+		setReview(prevState => {
+			return {
+			...prevState,
+			[e.target.name]: e.target.value
+		}})
+	}
 
 	const handleSubmit = () => {
 		// Replace with POST API call later
@@ -29,11 +38,11 @@ function ReviewModal({ toggleModal }) {
 				<div className="flex flex-col h-5/6 justify-around">
 					<form className="flex flex-col w-3/6 gap-4">
 						<label className={FORM_LABEL}>Your rating</label>
-						<input type="Number" className="w-1/6 h-10 pl-2" max={5} min={0} onChange={(e) => setReview(prev => ({...prev, rating: e.target.value}))}/>
+						<input name="rating" type="Number" className={`${FORM_CONTAINER} w-1/6`} max={5} min={0} onChange={(e) => handleChange(e)}/>
 						<label className={FORM_LABEL}>Your name</label>
-						<input placeholder="Name" type="text" className="w-2/6 h-10 pl-2" onChange={(e) => setReview(prev => ({...prev, name: e.target.value}))}/>
+						<input name="name" placeholder="Name" type="text" className={`${FORM_CONTAINER} w-2/6`} onChange={(e) => handleChange(e)}/>
 						<label className={FORM_LABEL}>Review</label>
-						<textarea placeholder="Your review!" type="text" className="h-48 pl-2 pt-2" onChange={(e) => setReview(prev => ({...prev, review: e.target.value}))}/>
+						<textarea name="review" placeholder="Your review!" type="text" className={`${FORM_CONTAINER} h-48 pt-2`} onChange={(e) => handleChange(e)}/>
 					</form>
 					<button 
 						className="bg-primary text-white w-48 h-12 justify-self-stretch tracking-widest font-bold rounded-lg hover:bg-primaryDark ease-in duration-200"
