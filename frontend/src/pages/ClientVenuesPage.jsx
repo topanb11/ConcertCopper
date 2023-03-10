@@ -1,59 +1,47 @@
-import CheckoutPage from "./CheckoutPage";
 import React from "react";
-import Saddledome from "../assets/Saddle.jpg"
-import TMobile from "../assets/T-Mobile2.png"
-import Amalie from "../assets/Amalie.jpg"
-
-
-const BUTTON_CONTAINER = "bg-primary w-64 flex flex-col items-center text-xl my-8 mx-auto py-2  rounded-lg hover:text-dark ease-in duration-300 font-bold"
-
-
+import VenueCard from "../components/VenueCard";
+import Saddledome from "../assets/Saddle.jpg";
+import TMobile from "../assets/T-Mobile2.png";
+import Amalie from "../assets/Amalie.jpg";
+import Climate from "../assets/Climate.jpeg";
+const BUTTON_CONTAINER = "bg-primary w-64 flex flex-col items-center text-xl py-2 rounded-lg hover:text-dark ease-in duration-300 font-bold"
+const data = [
+	{
+		name: "Scotiabank Saddledome",
+		location: "Calgary, AB",
+		img: Saddledome
+	},
+	{
+		name: "T-Mobile Arena",
+		location: "Paradise, NV",
+		img: TMobile
+	},
+	{
+		name: "Amalie Arena",
+		location: "Tampa, FL",
+		img: Amalie
+	},
+	{
+		name: "Climate Pledge Arena",
+		location: "Seattle, WA",
+		img: Climate
+	},
+]
 function ClientVenuesPage() {
 	return ( 
-		<>
-			<div className="flex flex-row space-x-50 justify-center items-center ">
-				<div className="bg-white rounded-lg pt-6 text-dark w-96 mt-64 ml-20 ">
-						<img className="w-96 px-4 rounded-lg " src={Saddledome}/>
-						<div className="flex flex-row justify-center items-center w-96 px-6 space-x-20 mt-8">
-							<h2 className="text-md">ScotiaBank Saddledome</h2>
-							<h4 className="text-sm">Calgary, AB</h4>
-						</div>
-						<button className={BUTTON_CONTAINER}>
-                            Edit
-                        </button>
-
-				</div>
-				<div className="bg-white rounded-lg pt-6 text-dark w-96 mt-64 ml-20 ">
-						<img className="w-96 px-4 rounded-lg " src={TMobile}/>
-						<div className="flex flex-row justify-center items-center w-96 px-6 space-x-20 mt-8">
-							<h2 className="text-md">T-Mobile Arena</h2>
-							<h4 className="text-sm">Paradise, NV</h4>
-						</div>
-						<button className={BUTTON_CONTAINER}>
-                            Edit
-                        </button>
-
-				</div>
-				<div className="bg-white rounded-lg pt-6 text-dark w-96 mt-64 ml-20 mr-20 ">
-						<img className="w-96 px-4 rounded-lg " src={Amalie}/>
-						<div className="flex flex-row justify-center items-center w-96 px-6 space-x-20 mt-8">
-							<h2 className="text-md">Amalie Arena</h2>
-							<h4 className="text-sm">Tampa, FL</h4>
-						</div>
-						<button className={BUTTON_CONTAINER}>
-                            Edit
-                        </button>
-
+		<div className="flex flex-col bg-dark min-h-screen w-max text-white items-center justify-center">
+			{/* Page container */}
+			<div className="flex flex-col justify-center gap-1 text-2xl px-6">
+				<h1>AVAILABLE VENUES</h1>
+				{/* Carousel */}
+				<div className="flex flex-row overflow-scroll gap-12 mx-auto">
+					{data.map((data, index) => (
+						<VenueCard key={index} {...data}/>
+					))}
 				</div>
 			</div>
-			<div className="h-80"></div>
-		
-		</>
-
-
-
+		</div>
 	 );
 }
-
 export default ClientVenuesPage;
 
