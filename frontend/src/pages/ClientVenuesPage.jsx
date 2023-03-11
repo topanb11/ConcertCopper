@@ -4,7 +4,7 @@ import Saddledome from "../assets/Saddle.jpg";
 import TMobile from "../assets/T-Mobile2.png";
 import Amalie from "../assets/Amalie.jpg";
 import Climate from "../assets/Climate.jpeg";
-const BUTTON_CONTAINER = "bg-primary w-64 flex flex-col items-center text-xl py-2 rounded-lg hover:text-dark ease-in duration-300 font-bold"
+
 const data = [
 	{
 		name: "Scotiabank Saddledome",
@@ -31,7 +31,7 @@ function ClientVenuesPage() {
 	return ( 
 		<div className="flex flex-col bg-dark min-h-screen w-max text-white items-center justify-center">
 			{/* Page container */}
-			<div className="flex flex-col justify-center gap-1 text-2xl px-6">
+			<div className="flex flex-col justify-center gap-1 text-2xl px-12">
 				<h1>AVAILABLE VENUES</h1>
 				{/* Carousel */}
 				<div className="flex flex-row overflow-scroll gap-12 mx-auto">
