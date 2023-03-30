@@ -222,9 +222,9 @@ VALUES
 
 INSERT INTO review (comment, datestamp, rating, venue_id, client_email)
 VALUES 
-	('this place rocks!', to_timestamp(1692508800), 5, 4, 'topan@gmail.com'),
-	('I LOVE THE WEEKNKD', to_timestamp(1692436800), 5, 4, 'rahat@gmail.com'),
-	('I mean it`s aight', to_timestamp(1692364800), 3, 4, 'gabe@gmail.com'),
-	('this was so messy and the bathroom was so far', to_timestamp(1692292800), 1, 5, 'rayhan@gmail.com'),
-	('WHY DOES IT SMELL', to_timestamp(1692220800), 0, 3, 'topan@gmail.com'),
-	('zzZZzz', to_timestamp(1692148800), 2, 1, 'jt@gmail.com');
+	('this place rocks!', to_timestamp(1652259000), 5, 4, 'topan@gmail.com'),
+	('I LOVE THE WEEKNKD', to_timestamp(1656821100), 5, 4, 'rahat@gmail.com'),
+	('I mean it`s aight', to_timestamp(1663621200), 3, 4, 'gabe@gmail.com'),
+	('this was so messy and the bathroom was so far', to_timestamp(1667273400), 1, 5, 'rayhan@gmail.com'),
+	('WHY DOES IT SMELL', to_timestamp(1671747300), 0, 3, 'topan@gmail.com'),
+	('zzZZzz', to_timestamp(1673881200), 2, 1, 'jt@gmail.com');
