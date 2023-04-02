@@ -19,3 +19,11 @@ def get_db():
 @app.get("/")
 def read_user(db: Session = Depends(get_db)):
 	return crud.get_user(db)
+
+@app.post("/user/login/")
+def login_user(email: str, password: str, db: Session = Depends(get_db)):
+	result = crud.validate_user(email, password, db)
+	if len(result) == 0:
+		raise HTTPException(status_code=410, detail="User does not exist in system")
+	else:
+		return result
