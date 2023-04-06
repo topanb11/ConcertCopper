@@ -1,5 +1,4 @@
 from fastapi import FastAPI, Depends, HTTPException
-from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.orm import Session
 
 import models, crud
@@ -23,7 +22,7 @@ def read_user(db: Session = Depends(get_db)):
 @app.post("/user/login/")
 def login_user(email: str, password: str, db: Session = Depends(get_db)):
 	result = crud.validate_user(email, password, db)
-	if len(result) == 0:
-		raise HTTPException(status_code=410, detail="User does not exist in system")
-	else:
+	if result:
 		return result
+	else:
+		raise HTTPException(status_code=410, detail="User does not exist in system")
