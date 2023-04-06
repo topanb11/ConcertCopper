@@ -42,4 +42,11 @@ def login_user(email: str, password: str, db: Session = Depends(get_db)):
 		raise HTTPException(status_code=410, detail="Password is incorrect")
 	else:
 		return result
-	
+
+@app.post("/register")
+def register_user(email: str, first: str, last: str, password: str, db: Session = Depends(get_db)):
+	result = crud.register_user(email, password, first, last, db)
+	if result == -1:
+		raise HTTPException(status_code=415, detail="User already exists in system")
+	else:
+		return {"message": "Success! Your account has been registered!"}

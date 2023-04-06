@@ -30,4 +30,27 @@ def validate_user(email: str, password: str, db: Session):
 		return dict(zip(columns, user))
 	else:
 		return -2
+
+def register_user(email: str, first: str, last: str, password: str, db: Session):
+	exists_query = '''
+		SELECT *
+		FROM users u
+		WHERE u.email=:email
+	'''
+
+	insert_query = '''
+		INSERT INTO users (email, pw, first_name, last_name, admin_flag)
+		VALUES (:email, :password, :first, :last, false)
+	'''
+	# check if user already exists in db
+	exists_result = db.execute(text(exists_query), {"email": email})
+	if len(exists_result.fetchall()) == 1:
+		return -1
 	
+	db.execute(text(insert_query), {
+		"email": email,
+		"password": password,
+		"first": first,
+		"last": last
+	})
+	db.commit()
