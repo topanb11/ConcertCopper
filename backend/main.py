@@ -37,9 +37,9 @@ def read_user(db: Session = Depends(get_db)):
 def login_user(email: str, password: str, db: Session = Depends(get_db)):
 	result = crud.validate_user(email, password, db)
 	if result == -1:
-		raise HTTPException(status_code=410, detail="User does not exist in system")
+		raise HTTPException(status_code=410, detail="User does not exist in system.")
 	elif result == -2:
-		raise HTTPException(status_code=420, detail="Password is incorrect")
+		raise HTTPException(status_code=420, detail="Password is incorrect.")
 	else:
 		return result
 
@@ -49,7 +49,12 @@ def register_user(email: str, first: str, last: str, password: str, db: Session 
 	if validate_email(email):
 		result = crud.register_user(email, password, first, last, db)
 		if result == -1:
-			raise HTTPException(status_code=415, detail="User already exists in system")
+			raise HTTPException(status_code=415, detail="User already exists in system.")
 		return {"message": "Success! Your account has been registered!"}
 	else:
-		raise HTTPException(status_code=416, detail="Please enter a valid email")
+		raise HTTPException(status_code=416, detail="Please enter a valid email.")
+
+@app.post("/admin/venue")
+def add_venue(name: str, location: str, img:str, db: Session = Depends(get_db)):
+	crud.add_venue(name, location, img, db)
+	return {"message": "Success! Venue has been added."}

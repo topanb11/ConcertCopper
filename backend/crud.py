@@ -54,3 +54,15 @@ def register_user(email: str, first: str, last: str, password: str, db: Session)
 		"last": last
 	})
 	db.commit()
+
+def add_venue(name: str, location: str, img: str, db: Session):
+	insert_query = '''
+		INSERT INTO venue (venue_name, venue_location, venue_img)
+		VALUES (:name, :location, :img)
+	'''
+	db.execute(text(insert_query), {
+		"name": name,
+		"location": location,
+		"img": img
+	})
+	db.commit()
