@@ -7,16 +7,13 @@ import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import CheckoutPage from "./pages/CheckoutPage";
 import ReviewPage from "./pages/ReviewPage";
+import { MainWrapper } from "./context/UserContext";
 
 const App = () => {
-	const UserContext = createContext();
-	const [user, setUser] = useState();
-	const userContextValue = useMemo(() => ({user, setUser}), [user, setUser]);
-
   return (
     <div className="bg-dark">
 			<BrowserRouter>
-				<UserContext.Provider value={userContextValue}>
+				<MainWrapper>
 					<Navbar/>
 					<Routes>
 						<Route path="/" element={<HomePage/>}/>
@@ -26,7 +23,7 @@ const App = () => {
 						<Route path="/checkout/:venueId" element={<CheckoutPage/>}/>
 						<Route path="/reviews/:venueId" element={<ReviewPage/>}/>
 					</Routes>
-				</UserContext.Provider>
+				</MainWrapper>
 			</BrowserRouter>
     </div>
   );

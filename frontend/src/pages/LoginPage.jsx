@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { apiRoot } from "../../api/apiRoot";
 import { useNavigate } from "react-router-dom";
+import { useUserContext } from "../context/UserContext";
 
 const BUTTON_CONTAINER =
   "bg-primary w-96 m-auto text-white text-xl mt-4 py-3 rounded-lg hover:text-dark ease-in duration-300 font-bold";
@@ -16,6 +17,7 @@ function LoginPage() {
     email: "",
     password: "",
   });
+  const {setUser} = useUserContext()
   const handleClick = (event) => {
     event.preventDefault();
     axios
@@ -28,6 +30,7 @@ function LoginPage() {
       .then((res) => {
         // Do something with user data here
         console.log("do something with user", res.data);
+        setUser(res.data)
 				navigate("/");
       })
       .catch((err) => alert(err.response.data.detail));
