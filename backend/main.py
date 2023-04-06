@@ -2,9 +2,9 @@ from fastapi import FastAPI, Depends, HTTPException
 from sqlalchemy.orm import Session
 from fastapi.middleware.cors import CORSMiddleware
 
-
 import models, crud
 from database import *
+from helpers import *
 
 app = FastAPI()
 
@@ -39,14 +39,17 @@ def login_user(email: str, password: str, db: Session = Depends(get_db)):
 	if result == -1:
 		raise HTTPException(status_code=410, detail="User does not exist in system")
 	elif result == -2:
-		raise HTTPException(status_code=410, detail="Password is incorrect")
+		raise HTTPException(status_code=420, detail="Password is incorrect")
 	else:
 		return result
 
 @app.post("/register")
 def register_user(email: str, first: str, last: str, password: str, db: Session = Depends(get_db)):
-	result = crud.register_user(email, password, first, last, db)
-	if result == -1:
-		raise HTTPException(status_code=415, detail="User already exists in system")
-	else:
+	result = 0
+	if validate_email(email):
+		result = crud.register_user(email, password, first, last, db)
+		if result == -1:
+			raise HTTPException(status_code=415, detail="User already exists in system")
 		return {"message": "Success! Your account has been registered!"}
+	else:
+		raise HTTPException(status_code=416, detail="Please enter a valid email")
