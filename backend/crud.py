@@ -8,7 +8,6 @@ def get_user(db: Session):
 	return [dict(zip(columns, row)) for row in result]
 
 def validate_user(email: str, password: str, db: Session):
-	exists_flag = False
 	exists_query = '''
 		SELECT *
 		FROM users u
@@ -21,9 +20,7 @@ def validate_user(email: str, password: str, db: Session):
 	'''
 	# checking if user exists first
 	exists_result = db.execute(text(exists_query), {"email": email})
-	if len(exists_result.fetchall()) > 0:
-		exists_flag = True
-	else:
+	if len(exists_result.fetchall()) == 0:
 		return -1
 
 	result = db.execute(text(query), {"email": email, "password": password})
