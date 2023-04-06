@@ -32,7 +32,7 @@ function ClientVenuesPage() {
         <div className="bg-dark min-h-screen text-white">
             <div className="flex flex-col justify-center gap-1 text-2xl px-12 pt-48">
                 <h1>AVAILABLE VENUES</h1>
-                <div className="flex flex-row scrollbar-hide overflow-x-scroll gap-x-24">
+                <div className="flex flex-row scrollbar-hide overflow-x-scroll gap-x-16">
                     {data.map((data, index) => (
                         <VenueCard key={index} {...data}/>
                     ))}
