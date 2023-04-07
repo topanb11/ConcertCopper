@@ -29,6 +29,18 @@ def get_AllVenues(db: Session):
     columns = result.keys()
     return [dict(zip(columns, row)) for row in result]
 
+def get_reviewsByVenue(venue_id: int, db: Session):
+    query = """
+        SELECT r.comment, r.datestamp, r.rating, v.venue_name
+        FROM review r 
+        INNER JOIN venue v 
+        ON r.venue_id = v.venue_id 
+        WHERE v.venue_id = :venue_id
+    """
+    result = db.execute(text(query), {"venue_id": venue_id})
+    columns = result.keys()
+    return [dict(zip(columns, row)) for row in result]
+
 def validate_user(email: str, password: str, db: Session):
 	exists_query = '''
 		SELECT *
