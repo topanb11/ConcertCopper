@@ -20,6 +20,15 @@ def get_PerformingArtists(venue_id: int, db: Session):
     columns = result.keys()
     return [dict(zip(columns, row)) for row in result]
 
+def get_AllVenues(db: Session):
+    query = """
+        SELECT venue_id, venue_name, venue_location
+        FROM venue;
+    """
+    result = db.execute(text(query))
+    columns = result.keys()
+    return [dict(zip(columns, row)) for row in result]
+
 def validate_user(email: str, password: str, db: Session):
 	exists_query = '''
 		SELECT *
