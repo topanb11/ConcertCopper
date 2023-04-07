@@ -9,6 +9,16 @@ def get_user(db: Session):
 	columns = result.keys()
 	return [dict(zip(columns, row)) for row in result]
 
+def get_PerformingArtists(venue_id: int, db: Session):
+    query = """
+ 		SELECT a.email, a.first_name, a.last_name, a.stage_name, a.manager_email
+		FROM showtime s
+		INNER JOIN artists a ON s.artist_email = a.email
+		WHERE s.venue_id = :venue_id;
+    """
+    result = db.execute(text(query), {"venue_id": venue_id})
+    columns = result.keys()
+    return [dict(zip(columns, row)) for row in result]
 
 def validate_user(email: str, password: str, db: Session):
 	exists_query = '''
