@@ -5,6 +5,7 @@ from fastapi.middleware.cors import CORSMiddleware
 import models, crud
 from database import *
 from helpers import *
+from schemas import *
 
 app = FastAPI()
 
@@ -58,3 +59,8 @@ def register_user(email: str, first: str, last: str, password: str, db: Session 
 def add_venue(name: str, location: str, img:str, db: Session = Depends(get_db)):
 	crud.add_venue(name, location, img, db)
 	return {"message": "Success! Venue has been added."}
+
+@app.post("/admin/venue/artist")
+def add_artist(showtime: ShowtimeInfo = Depends(), db: Session = Depends(get_db)):
+	crud.add_artist(showtime, db)
+	return {"message": "Success! An artist has been added to the venue."}

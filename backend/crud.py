@@ -1,5 +1,6 @@
 from sqlalchemy.sql import text
 from sqlalchemy.orm import Session
+from datetime import datetime
 
 from schemas import *
 
@@ -67,4 +68,17 @@ def add_venue(name: str, location: str, img: str, db: Session):
 		"img": img
 	})
 	db.commit()
-	
+
+def add_artist(showtime: ShowtimeInfo, db: Session):
+	insert_query = '''
+		INSERT INTO showtime (venue_id, datestamp, artist_email)
+		VALUES (:venue_id, :datestamp, :artist_email)
+	'''
+	converted_timestamp = datetime.fromtimestamp(showtime.timestamp)
+
+	db.execute(text(insert_query), {
+		"venue_id": showtime.venue_id,
+		"datestamp": converted_timestamp,
+		"artist_email": showtime.artist_email
+	})
+	db.commit()
