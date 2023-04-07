@@ -1,6 +1,7 @@
 from sqlalchemy.sql import text
 from sqlalchemy.orm import Session
-from sqlalchemy.exc import SQLAlchemyError
+
+from schemas import *
 
 def get_user(db: Session):
 	result = db.execute(text("SELECT * FROM users;"))
@@ -66,3 +67,4 @@ def add_venue(name: str, location: str, img: str, db: Session):
 		"img": img
 	})
 	db.commit()
+	

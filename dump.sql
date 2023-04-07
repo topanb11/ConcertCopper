@@ -7,7 +7,7 @@ CREATE TABLE users (
 	PRIMARY KEY(email)
 );
 
-CREATE TABLE artist_managers (
+CREATE TABLE artist_manager (
 	email varchar(255),
 	first_name varchar(255),
 	last_name varchar(255),
@@ -15,7 +15,7 @@ CREATE TABLE artist_managers (
 	PRIMARY KEY(email)
 );
 
-CREATE TABLE artists (
+CREATE TABLE artist (
 	email varchar(255),
 	first_name varchar(255),
 	last_name varchar(255),
@@ -23,7 +23,7 @@ CREATE TABLE artists (
 	manager_email varchar(255),
 	artist_img varchar(255),
 	PRIMARY KEY(email),
-	FOREIGN KEY(manager_email) REFERENCES artist_managers(email)
+	FOREIGN KEY(manager_email) REFERENCES artist_manager(email)
 );
 
 CREATE TABLE venue (
@@ -81,11 +81,11 @@ VALUES
 	('rayhan@gmail.com', 'test', 'Rayhan', 'Khalid', false),
 	('jt@gmail.com', 'test', 'Joshua', 'Toletino', false);
 
-INSERT INTO artist_managers (email, first_name, last_name, record_label)
+INSERT INTO artist_manager (email, first_name, last_name, record_label)
 VALUES
 	('bnguyen@gmail.com', 'Brian', 'Nguyen', 'vietnam records');
 
-INSERT into artists (email, first_name, last_name, stage_name, manager_email, artist_img)
+INSERT into artist (email, first_name, last_name, stage_name, manager_email, artist_img)
 VALUES 
 	('drake@gmail.com', 'Aubrey', 'Graham', 'Drake', 'bnguyen@gmail.com', 'https://m.media-amazon.com/images/M/MV5BMjIwNDE2ODI5OF5BMl5BanBnXkFtZTcwMDkzMjU3NQ@@._V1_FMjpg_UX1000_.jpg'),
 	('beyonce@gmail.com', 'Bey', 'Once', 'Beyonce', 'bnguyen@gmail.com', 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Beyoncé_at_The_Lion_King_European_Premiere_2019.png/640px-Beyoncé_at_The_Lion_King_European_Premiere_2019.png'),
