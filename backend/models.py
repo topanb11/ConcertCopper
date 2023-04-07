@@ -20,3 +20,4 @@ class Review(Base):
     comment = Column(String)
     date = Column(DateTime, default = datetime.utcnow)
     rating = Column(Integer)
+    venue_ID = Column(Integer)
