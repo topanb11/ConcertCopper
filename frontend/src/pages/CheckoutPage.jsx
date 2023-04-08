@@ -19,7 +19,7 @@ function CheckoutPage() {
   });
   const [artists, setArtists] = useState([]);
   const [seats, setSeats] = useState([]);
-  const [selected, setSelected] = useState();
+  const [selected, setSelected] = useState([]);
 
   useEffect(() => {
     apiRoot
@@ -30,13 +30,19 @@ function CheckoutPage() {
   }, []);
 
   const handleSelect = (e) => {
-    filterArtistSeats(e.target.value);
-    const index = e.target.selectedIndex - 1;
-    if (e.target.name === "seats") {
-      setSelected(seats[index]);
-    } else if (e.target.name === "artist") {
-      setSelected();
-    }
+	filterArtistSeats(e.target.value);
+	if (e.target.name === "seats") {
+		const selectedOptions = e.target.selectedOptions;
+		const selectedSeats = []
+		const indices = [];
+		for (let i = 0; i < selectedOptions.length; i++) {
+			indices.push(selectedOptions[i].index - 1);
+		}
+		for (let j = 0; j < indices.length; j++) {
+			selectedSeats.push(seats[indices[j]]);	
+		}
+		setSelected(selectedSeats);
+	}
   };
 
   const handleChange = (e) => {
@@ -66,14 +72,16 @@ function CheckoutPage() {
   };
 
   function filterArtistSeats(name) {
-    for (var i = 0; i < artists.length; i++) {
+    for (let i = 0; i < artists.length; i++) {
       const artist = artists[i];
       if (artist.stageName === name) {
-        const sortedSeats = artist.seats.sort(
+        const allSeats = artist.seats.sort(
           (a, b) => a.datestamp - b.datestamp
         );
-        setSeats(sortedSeats);
-      }
+        setSeats(allSeats);
+      } else if (name === "-- Select an Artist --") {
+		setSeats([]);
+	  }
     }
   }
 
@@ -110,9 +118,10 @@ function CheckoutPage() {
           </select>
           <h2 className={HEADER}>Available Seats</h2>
           <select
-            className="w-1/2 h-10 text-xl"
+            className="w-1/2 h-fit text-xl"
             onChange={(e) => handleSelect(e)}
             name="seats"
+			multiple
           >
             <option>-- Select a Seat --</option>
             {seats.map((data, index) => {
@@ -126,7 +135,7 @@ function CheckoutPage() {
           </select>
         </div>
         <div className="flex flex-col pl-10 w-full items-center">
-          {user.user ? (
+          {user.user.signedIn ? (
             <></>
           ) : (
             <form className="flex flex-col space-y-5 w-full">
@@ -165,21 +174,19 @@ function CheckoutPage() {
           <div className="flex flex-col mt-5 border-t-2 border-dark/20 py-5 space-y-4 border-b-2 mb-12 w-full">
             <div className="flex flex-row justify-between text-2xl">
               <h3>Subtotal:</h3>
-              <p>${selected ? selected.price.toFixed(2) : (0.0).toFixed(2)}</p>
+              <p>$10.00</p>
             </div>
             <div className="flex flex-row justify-between text-2xl">
               <h3>Total:</h3>
               <p>
-                $
-                {selected
-                  ? (selected.price * 1.05).toFixed(2)
-                  : (0.0).toFixed(2)}
+                $10.00
               </p>
             </div>
           </div>
           <button
             className="bg-primary text-white tracking-widest h-12 rounded-lg font-semibold w-96 hover:bg-primaryDark ease-in duration-200"
             onClick={() => handleSubmit()}
+			name="checkout"
           >
             C H E C K O U T
           </button>
