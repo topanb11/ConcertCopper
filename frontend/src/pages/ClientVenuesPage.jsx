@@ -9,28 +9,32 @@ import AddVenueCard from "../components/AddVenueCard";
 
 const data = [
     {
+		venueId: 1,
         name: "Scotiabank Saddledome",
         location: "Calgary, AB",
         img: Saddledome
     },
     {
+		venueId: 2,
         name: "T-Mobile Arena",
         location: "Paradise, NV",
         img: TMobile
     },
     {
+		venueId: 3,
         name: "Amalie Arena",
         location: "Tampa, FL",
         img: Amalie
     },
     {
+		venueId: 5,
         name: "Climate Pledge Arena",
         location: "Seattle, WA",
         img: Climate
     },
 ]
 function ClientVenuesPage() {
-    const {user} = useUserContext()
+    const { user } = useUserContext()
     return ( 
         <div className="bg-dark min-h-screen text-white">
             <div className="flex flex-col justify-center gap-1 text-2xl px-12 pt-48">

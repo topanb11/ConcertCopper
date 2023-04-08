@@ -124,7 +124,7 @@ def write_review(comment: str, rating: int, venue_id: int, client_email: str, db
 
 def get_venue_artists(venue_id: int, db: Session):
     query = '''
-    SELECT a.stage_name, s.datestamp, seat.seat_name, seat.price
+    SELECT a.stage_name, s.datestamp, seat.seat_name, seat.price, seat.seat_id
     FROM artist a 
     JOIN showtime s
         ON a.email = s.artist_email
@@ -142,7 +142,8 @@ def get_venue_artists(venue_id: int, db: Session):
             seats.append({
                 "datestamp": datetime.timestamp(row[1]),
                 "seatName": row[2],
-                "price": row[3]
+                "price": row[3],
+                "seatId": row[4]
             })
         else:
             artist = {

@@ -31,7 +31,7 @@ function LoginPage() {
         // Do something with user data here
         console.log("do something with user", res.data);
         setUser(res.data)
-				navigate("/");
+		navigate("/");
       })
       .catch((err) => alert(err.response.data.detail));
   };
