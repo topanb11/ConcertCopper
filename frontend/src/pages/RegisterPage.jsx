@@ -62,7 +62,7 @@ function RegisterPage() {
       <h1 className="w-[550px] font-semibold text-3xl mb-2 text-white">
         REGISTER
       </h1>
-      <form className="bg-white w-[550px] p-8 rounded-2xl gap-2">
+      <form onSubmit={(e) => handleSubmit(e)} className="bg-white w-[550px] p-8 rounded-2xl gap-2">
         <label className={LABEL}>Email</label>
         <input
           name="email"
