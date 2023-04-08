@@ -1,16 +1,21 @@
 import { useState } from "react";
 import CloseIcon from '@mui/icons-material/Close';
+import { apiRoot } from "../../api/apiRoot";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const FORM_LABEL = "font-semibold text-xl";
 const FORM_CONTAINER = "pl-2 border-2 border-dark/50 h-10";
 
 function ReviewModal({ toggleModal }) {
+	//const navigate = useNavigate();
 	const [review, setReview] = useState({
 		name: "",
 		review: "",
 		rating: 0
 	});
 
+	const navigate = useNavigate();
 	const handleChange = (e) => {
 		setReview(prevState => {
 			return {
@@ -20,7 +25,21 @@ function ReviewModal({ toggleModal }) {
 	}
 
 	const handleSubmit = () => {
-		// Replace with POST API call later
+		axios
+			.post(apiRoot + "/reviews/:venueId", null,{
+				params:{
+					rating: review.rating,
+					name: review.name,
+					review :review.review,
+				},
+			})
+			.then((res) => {
+				alert(res.data.message);
+				console.log(review);
+				navigate("/");
+			})
+			.catch((err) => alert(err.response.data.detail));
+			
 		console.log("review submitted!", review);
 	};
 
