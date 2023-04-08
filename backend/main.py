@@ -1,4 +1,6 @@
-from fastapi import FastAPI, Depends, HTTPException
+import datetime
+from fastapi import FastAPI, Depends, HTTPException, Request
+from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.orm import Session
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -34,6 +36,26 @@ def get_db():
 def read_user(db: Session = Depends(get_db)):
 	return crud.get_user(db)
 
+@app.get("/admin/venues")
+def performingArtist(venue_id:int, db:Session = Depends(get_db)):
+    get_Artist = crud.get_PerformingArtist(venue_id, db)
+    if not get_Artist:
+        raise HTTPException(status_code=410,detail="Please enter in an existing venue")
+    return get_Artist
+
+@app.get("/reviews/venue_id")
+def get_reviewsByVenue(venue_id:int, db:Session=Depends(get_db)):
+    get_reviews = crud.get_reviewsByVenue(venue_id, db)
+    if not get_reviews:
+        raise HTTPException(status_code = 410, detail = "No reviews for this venue")
+    return get_reviews
+
+@app.get("/venues")
+def get_AllVenues(db: Session = Depends(get_db)):
+    return crud.get_AllVenues(db)
+    
+    
+    
 @app.post("/login")
 def login_user(email: str, password: str, db: Session = Depends(get_db)):
 	result = crud.validate_user(email, password, db)
@@ -44,6 +66,12 @@ def login_user(email: str, password: str, db: Session = Depends(get_db)):
 	else:
 		return result
 
+
+@app.post("/review")
+def write_review(comment: str, rating: int, venue_id:int, client_email: str, db: Session = Depends(get_db)):
+        crud.write_review(comment,rating, venue_id, client_email,db)
+        return{"message":"Success! Review has been added."}
+    
 @app.post("/register")
 def register_user(email: str, first: str, last: str, password: str, db: Session = Depends(get_db)):
 	result = 0

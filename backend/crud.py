@@ -1,5 +1,8 @@
+import datetime
 from sqlalchemy.sql import text
 from sqlalchemy.orm import Session
+import models
+from sqlalchemy.exc import SQLAlchemyError
 from datetime import datetime
 
 from schemas import *
@@ -8,6 +11,38 @@ def get_user(db: Session):
 	result = db.execute(text("SELECT * FROM users;"))
 	columns = result.keys()
 	return [dict(zip(columns, row)) for row in result]
+
+def get_PerformingArtist(venue_id: int, db: Session):
+    query = """
+ 		SELECT a.email, a.first_name, a.last_name, a.stage_name, a.manager_email
+		FROM showtime s
+		INNER JOIN artist a ON s.artist_email = a.email
+		WHERE s.venue_id = :venue_id;
+    """
+    result = db.execute(text(query), {"venue_id": venue_id})
+    columns = result.keys()
+    return [dict(zip(columns, row)) for row in result]
+
+def get_AllVenues(db: Session):
+    query = """
+        SELECT venue_id, venue_name, venue_location
+        FROM venue;
+    """
+    result = db.execute(text(query))
+    columns = result.keys()
+    return [dict(zip(columns, row)) for row in result]
+
+def get_reviewsByVenue(venue_id: int, db: Session):
+    query = """
+        SELECT r.comment, r.datestamp, r.rating, v.venue_name
+        FROM review r 
+        INNER JOIN venue v 
+        ON r.venue_id = v.venue_id 
+        WHERE v.venue_id = :venue_id
+    """
+    result = db.execute(text(query), {"venue_id": venue_id})
+    columns = result.keys()
+    return [dict(zip(columns, row)) for row in result]
 
 def validate_user(email: str, password: str, db: Session):
 	exists_query = '''
@@ -27,6 +62,7 @@ def validate_user(email: str, password: str, db: Session):
 
 	result = db.execute(text(query), {"email": email, "password": password})
 	columns = result.keys()
+	#return [dict(zip(columns, row)) for row in result][0]
 	user = result.fetchone()
 	if user:
 		return dict(zip(columns, user))
@@ -68,6 +104,21 @@ def add_venue(name: str, location: str, img: str, db: Session):
 		"img": img
 	})
 	db.commit()
+ 
+def write_review(comment: str, rating: int, venue_id: int, client_email: str, db: Session):
+    datestamp = datetime.now()
+    insert_query = '''
+        INSERT INTO review (comment, rating, venue_id, client_email, datestamp)
+        VALUES (:comment, :rating, :venue_id, :client_email, :datestamp)
+    '''
+    db.execute(text(insert_query), {
+        "comment": comment,
+        "rating": rating,
+        "venue_id": venue_id,
+        "client_email": client_email,
+        "datestamp": datestamp
+    })
+    db.commit()
 
 def add_artist(showtime: ShowtimeInfo, db: Session):
 	insert_query = '''
