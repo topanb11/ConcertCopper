@@ -30,11 +30,12 @@ const Navbar = () => {
         });
       }
     function handleSignOut(){
-        setUser({signedIn: false, adminFlag: false});
+        setUser((prev) => { return {...prev, signedIn: false, adminFlag: false}});
         navigate("/");
     }
     const LABEL = "block text-dark/50 font-semibold text-2xl";
     const INPUT_FIELD = "rounded-md pl-3 h-14 w-full border-solid border-2 border-dark/50 mb-4 text-lg";
+
 	return (
 		<div className="fixed bg-primary flex flex-row w-screen text-white justify-between items-center px-10 py-2 rounded-b-lg">
 			<img className="w-24 hover:cursor-pointer" onClick={() => handleClick("/")} src={Logo}/>
@@ -43,7 +44,7 @@ const Navbar = () => {
                     <div className="flex gap-14">
                         {user.adminFlag && <h2 className={NAVBAR_HEADER} onClick={() => {setModal(prev => !prev)}}>DASHBOARD</h2>}
                         <h2 className={NAVBAR_HEADER} onClick={handleSignOut}>SIGN OUT</h2>
-                    </div>:
+                    </div> :
                     <div className="flex gap-14">
                         <h2 className={NAVBAR_HEADER} onClick={() => handleClick("/register")}>CREATE ACCOUNT</h2>
                         <h2 className={NAVBAR_HEADER} onClick={() => handleClick("/login")}>LOG IN</h2>

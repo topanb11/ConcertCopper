@@ -28,9 +28,13 @@ function LoginPage() {
         },
       })
       .then((res) => {
-        // Do something with user data here
-        console.log("do something with user", res.data);
-        setUser(res.data)
+		const user = {
+			...res.data,
+			["adminFlag"]: res.data.admin_flag,
+			["signedIn"]: true
+		};
+		delete user.admin_flag;
+        setUser(user)
 		navigate("/");
       })
       .catch((err) => alert(err.response.data.detail));
