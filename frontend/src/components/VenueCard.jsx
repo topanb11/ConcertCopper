@@ -16,12 +16,12 @@ function VenueCard({name, location, img, venueId}) {
 
     return (
         <div className="flex flex-col bg-white text-dark gap-5 rounded-lg p-5">
-            <img className="rounded-lg" src={img}/>
+            <img className="rounded-lg w-80" src={img}/>
             <div>
                 <h2 className="font-bold">{name}</h2>
                 <h3 className="text-sm">{location}</h3>
             </div>
-            {!user.adminFlag ? <div className="flex flex-col gap-3">
+            {!user.adminFlag ? <div className="flex flex-col gap-3 mt-auto">
                 <button onClick={() => handleClick("/checkout/:venueId")} className={BUTTON_CONTAINER}>VIEW TICKETS</button>
                 <button onClick={() => handleClick("/reviews/:venueId")} className={BUTTON_CONTAINER}>REVIEWS</button>
             </div>: 

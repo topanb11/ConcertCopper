@@ -30,7 +30,7 @@ const Navbar = () => {
         });
       }
     function handleSignOut(){
-        setUser(null);
+        setUser({signedIn: false, adminFlag: false});
         navigate("/");
     }
     const LABEL = "block text-dark/50 font-semibold text-2xl";
@@ -39,7 +39,7 @@ const Navbar = () => {
 		<div className="fixed bg-primary flex flex-row w-screen text-white justify-between items-center px-10 py-2 rounded-b-lg">
 			<img className="w-24 hover:cursor-pointer" onClick={() => handleClick("/")} src={Logo}/>
 			<div className="flex flex-row space-x-12">
-				{user ? 
+				{user.signedIn ? 
                     <div className="flex gap-14">
                         {user.adminFlag && <h2 className={NAVBAR_HEADER} onClick={() => {setModal(prev => !prev)}}>DASHBOARD</h2>}
                         <h2 className={NAVBAR_HEADER} onClick={handleSignOut}>SIGN OUT</h2>
