@@ -36,8 +36,8 @@ function RegisterPage() {
 		else if (form.password.length == 0)
 			alert("Password field cannot be empty")
 		else {
-			axios
-				.post(apiRoot + "/register", null, {
+			apiRoot
+				.post("/register", null, {
 					params: {
 						email: form.email,
 						first: form.first,

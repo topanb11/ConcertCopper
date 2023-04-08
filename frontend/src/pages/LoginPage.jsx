@@ -18,8 +18,8 @@ function LoginPage() {
   });
   const handleClick = (event) => {
     event.preventDefault();
-    axios
-      .post(apiRoot + "/login", null, {
+    apiRoot
+      .post("/login", null, {
         params: {
           email: account.email,
           password: account.password,
