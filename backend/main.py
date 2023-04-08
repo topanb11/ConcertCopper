@@ -32,6 +32,7 @@ def get_db():
 	finally:
 		db.close()
 
+
 @app.post("/login")
 def login_user(email: str, password: str, db: Session = Depends(get_db)):
 	result = crud.validate_user(email, password, db)
@@ -41,6 +42,7 @@ def login_user(email: str, password: str, db: Session = Depends(get_db)):
 		raise HTTPException(status_code=420, detail="Password is incorrect.")
 	else:
 		return result
+
 
 @app.post("/register")
 def register_user(email: str, first: str, last: str, password: str, db: Session = Depends(get_db)):
@@ -53,35 +55,46 @@ def register_user(email: str, first: str, last: str, password: str, db: Session 
 	else:
 		raise HTTPException(status_code=416, detail="Please enter a valid email.")
 
+
 @app.get("/venues")
 def get_all_venues(db: Session = Depends(get_db)):
-    return crud.get_all_venues(db)  
+	return crud.get_all_venues(db)  
+
+
+@app.get("/venues/{venueId}")
+def get_all_artists(venue_id: int, db: Session = Depends(get_db)):
+	return crud.get_venue_artists(venue_id, db)
     
+
 @app.post("/review")
 def write_review(comment: str, rating: int, venue_id:int, client_email: str, db: Session = Depends(get_db)):
-        crud.write_review(comment,rating, venue_id, client_email,db)
-        return{"message":"Success! Review has been added."}
+	crud.write_review(comment,rating, venue_id, client_email,db)
+	return{"message":"Success! Review has been added."}
+
 
 @app.get("/reviews/venue_id")
 def get_venue_reviews(venue_id:int, db:Session=Depends(get_db)):
-    get_reviews = crud.get_venue_reviews(venue_id, db)
-    if not get_reviews:
-        raise HTTPException(status_code = 410, detail = "No reviews for this venue")
-    return get_reviews
+	get_reviews = crud.get_venue_reviews(venue_id, db)
+	if not get_reviews:
+			raise HTTPException(status_code = 410, detail = "No reviews for this venue")
+	return get_reviews
+
 
 @app.post("/admin/venue")
 def add_venue(name: str, location: str, img:str, db: Session = Depends(get_db)):
 	crud.add_venue(name, location, img, db)
 	return {"message": "Success! Venue has been added."}
 
+
 @app.post("/admin/venue/artist")
 def add_artist(showtime: ShowtimeInfo = Depends(), db: Session = Depends(get_db)):
 	crud.add_artist(showtime, db)
 	return {"message": "Success! An artist has been added to the venue."}
 
+
 @app.get("/admin/venues")
 def get_performing_artists(venue_id:int, db:Session = Depends(get_db)):
-    get_artist = crud.get_performing_artist(venue_id, db)
-    if not get_artist:
-        raise HTTPException(status_code=410,detail="Please enter in an existing venue")
-    return get_artist
+	get_artist = crud.get_performing_artists(venue_id, db)
+	if not get_artist:
+			raise HTTPException(status_code=410,detail="Please enter in an existing venue")
+	return get_artist
