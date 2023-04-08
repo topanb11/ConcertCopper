@@ -2,6 +2,7 @@ import { useState } from "react";
 import { apiRoot } from "../../api/apiRoot";
 import { Navigate, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useUserContext } from "../context/UserContext";
 
 const LABEL = "block text-dark/50 font-semibold text-2xl";
 const INPUT_FIELD =
@@ -15,7 +16,7 @@ function RegisterPage() {
     last: "",
     password: "",
   });
-
+  const {setUser} = useUserContext();
   function handler(event) {
     setform((prevForm) => {
       return {
@@ -49,6 +50,7 @@ function RegisterPage() {
 					// Do something with context after they register
 					alert(res.data.message);
 					console.log(form);
+                    setUser({firstName: form.first, lastName: form.last, adminFlag: false})
 					navigate("/");
 				})
 				.catch((err) => alert(err.response.data.detail));
@@ -60,7 +62,7 @@ function RegisterPage() {
       <h1 className="w-[550px] font-semibold text-3xl mb-2 text-white">
         REGISTER
       </h1>
-      <form className="bg-white w-[550px] p-8 rounded-2xl gap-2">
+      <form onSubmit={(e) => handleSubmit(e)} className="bg-white w-[550px] p-8 rounded-2xl gap-2">
         <label className={LABEL}>Email</label>
         <input
           name="email"
