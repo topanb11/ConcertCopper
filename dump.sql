@@ -91,14 +91,14 @@ VALUES
 	('drake@gmail.com', 'Aubrey', 'Graham', 'Drake', 'bnguyen@gmail.com', 'https://m.media-amazon.com/images/M/MV5BMjIwNDE2ODI5OF5BMl5BanBnXkFtZTcwMDkzMjU3NQ@@._V1_FMjpg_UX1000_.jpg'),
 	('beyonce@gmail.com', 'Bey', 'Once', 'Beyonce', 'bnguyen@gmail.com', 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Beyoncé_at_The_Lion_King_European_Premiere_2019.png/640px-Beyoncé_at_The_Lion_King_European_Premiere_2019.png'),
 	('gingy@gmail.com', 'Ice', 'Spice', 'Ice Spice', 'bnguyen@gmail.com', 'https://pyxis.nymag.com/v1/imgs/339/66b/97b57ca1b6454d02f6a2fb37fb8ed69ced-Q347-RME-TheCutxIceSpice-002-05-FNL.1x.rsquare.w1400.jpg'),
-	('weeknd@gmail.com', 'Week', 'end', 'Weeknd', 'bnguyen@gmail.com', 'https://i.scdn.co/image/ab6761610000e5ebb5f9e28219c169fd4b9e8379'),
+	('weeknd@gmail.com', 'Week', 'end', 'The Weeknd', 'bnguyen@gmail.com', 'https://i.scdn.co/image/ab6761610000e5ebb5f9e28219c169fd4b9e8379'),
 	('kpop@gmail.com', 'one', 'two', 'TWICE', 'bnguyen@gmail.com', 'https://s1.ticketm.net/dam/a/3a4/7c0b198a-5fc2-49ce-9e75-455518e613a4_TABLET_LANDSCAPE_LARGE_16_9.jpg'),
 	('indoman@gmail.com', 'Brian', 'Imanuel', 'Rich Brian', 'bnguyen@gmail.com', 'https://yt3.googleusercontent.com/5GTdgOUts50y6z1b9gJ2OmYrHZFO7uLIoMmA_HblQyI4X1XA_nWU0apFLwVp8KYURQNx6HbFJA=s900-c-k-c0x00ffffff-no-rj'),
 	('warren@gmail.com', 'Warren', 'Hue', 'Warren Hue', 'bnguyen@gmail.com', 'https://i.scdn.co/image/ab6761610000e5eb4ce83e0bb702c7fec348f146'),
 	('justwannarock@gmail.com', 'Uzi', 'Vert', 'Lil Uzi Vert', 'bnguyen@gmail.com', 'https://i.scdn.co/image/ab6761610000e5eb30122c0d3ead72f96bb5ee93'),
 	('kaliii@gmail.com', 'Kali', 'Uchis', 'Kali Uchis', 'bnguyen@gmail.com', 'https://www.rollingstone.com/wp-content/uploads/2023/01/kali-uchis-new-album.jpg'),
 	('tylercallme@gmail.com', 'Tyler', 'Boudelaire', 'Tyler The Creator', 'bnguyen@gmail.com', 'https://i.scdn.co/image/ab6761610000e5eb8278b782cbb5a3963db88ada'),
-	('nikiz@gmail.com', 'Niki', 'Zefanya', 'Niki', 'bnguyen@gmail.com', 'https://upload.wikimedia.org/wikipedia/commons/f/fd/Niki_in_2022.png');
+	('nikiz@gmail.com', 'Niki', 'Zefanya', 'NIKI', 'bnguyen@gmail.com', 'https://upload.wikimedia.org/wikipedia/commons/f/fd/Niki_in_2022.png');
 
 INSERT INTO venue (venue_name, venue_location, venue_img)
 VALUES
