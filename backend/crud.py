@@ -27,7 +27,7 @@ def get_all_venues(db: Session):
     columns = result.keys()
     return [dict(zip(columns, row)) for row in result]
 
-def get_reviewsByVenue(venue_id: int, db: Session):
+def get_venue_reviews(venue_id: int, db: Session):
     query = """
         SELECT r.comment, r.datestamp, r.rating, v.venue_name, r.client_email
         FROM review r 
