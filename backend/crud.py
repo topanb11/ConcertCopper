@@ -7,12 +7,7 @@ from datetime import datetime
 
 from schemas import *
 
-def get_user(db: Session):
-	result = db.execute(text("SELECT * FROM users;"))
-	columns = result.keys()
-	return [dict(zip(columns, row)) for row in result]
-
-def get_PerformingArtist(venue_id: int, db: Session):
+def get_performing_artist(venue_id: int, db: Session):
     query = """
  		SELECT a.email, a.first_name, a.last_name, a.stage_name, a.manager_email
 		FROM showtime s
@@ -23,7 +18,7 @@ def get_PerformingArtist(venue_id: int, db: Session):
     columns = result.keys()
     return [dict(zip(columns, row)) for row in result]
 
-def get_AllVenues(db: Session):
+def get_all_venues(db: Session):
     query = """
         SELECT venue_id, venue_name, venue_location
         FROM venue;
@@ -34,7 +29,7 @@ def get_AllVenues(db: Session):
 
 def get_reviewsByVenue(venue_id: int, db: Session):
     query = """
-        SELECT r.comment, r.datestamp, r.rating, v.venue_name
+        SELECT r.comment, r.datestamp, r.rating, v.venue_name, r.client_email
         FROM review r 
         INNER JOIN venue v 
         ON r.venue_id = v.venue_id 
@@ -62,7 +57,6 @@ def validate_user(email: str, password: str, db: Session):
 
 	result = db.execute(text(query), {"email": email, "password": password})
 	columns = result.keys()
-	#return [dict(zip(columns, row)) for row in result][0]
 	user = result.fetchone()
 	if user:
 		return dict(zip(columns, user))

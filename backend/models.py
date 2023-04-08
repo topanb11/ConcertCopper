@@ -15,12 +15,12 @@ class Users(Base):
 class Review(Base):
     __tablename__ = "reviews"
     
-    email = Column(String, primary_key=True, index=True)
+    client_email = Column(String, primary_key=True, index=True)
     name = Column(String)
     comment = Column(String)
     date = Column(DateTime, default = datetime.utcnow)
     rating = Column(Integer)
-    venue_ID = Column(Integer)
+    venue_id = Column(Integer)
 
 class Showtime(Base):
     __tablename__ = "showtime"
