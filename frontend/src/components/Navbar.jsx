@@ -8,7 +8,7 @@ const NAVBAR_HEADER = "text-2xl font-semibold hover:cursor-pointer hover:text-da
 
 const Navbar = () => {
 	const navigate = useNavigate();
-	const {user} = useContext(UserContext);
+	const {user, setUser} = useContext(UserContext);
     const [modal, setModal] = useState(false);
     const [form, setform] = useState({
         email: "",
@@ -29,6 +29,10 @@ const Navbar = () => {
           };
         });
       }
+    function handleSignOut(){
+        setUser(null);
+        navigate("/");
+    }
     const LABEL = "block text-dark/50 font-semibold text-2xl";
     const INPUT_FIELD = "rounded-md pl-3 h-14 w-full border-solid border-2 border-dark/50 mb-4 text-lg";
 	return (
@@ -38,7 +42,7 @@ const Navbar = () => {
 				{user ? 
                     <div className="flex gap-14">
                         {user.adminFlag && <h2 className={NAVBAR_HEADER} onClick={() => {setModal(prev => !prev)}}>DASHBOARD</h2>}
-                        <h2 className={NAVBAR_HEADER} onClick={() => console.log("signout")}>SIGN OUT</h2>
+                        <h2 className={NAVBAR_HEADER} onClick={handleSignOut}>SIGN OUT</h2>
                     </div>:
                     <div className="flex gap-14">
                         <h2 className={NAVBAR_HEADER} onClick={() => handleClick("/register")}>CREATE ACCOUNT</h2>
