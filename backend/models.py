@@ -21,3 +21,11 @@ class Review(Base):
     date = Column(DateTime, default = datetime.utcnow)
     rating = Column(Integer)
     venue_ID = Column(Integer)
+
+class Showtime(Base):
+    __tablename__ = "showtime"
+
+    showtime_id = Column(Integer, primary_key=True, index=True)
+    venue_id = Column(Integer)
+    datestamp = Column(DateTime)
+    artist_email = Column(String)

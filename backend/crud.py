@@ -3,17 +3,20 @@ from sqlalchemy.sql import text
 from sqlalchemy.orm import Session
 import models
 from sqlalchemy.exc import SQLAlchemyError
+from datetime import datetime
+
+from schemas import *
 
 def get_user(db: Session):
 	result = db.execute(text("SELECT * FROM users;"))
 	columns = result.keys()
 	return [dict(zip(columns, row)) for row in result]
 
-def get_PerformingArtists(venue_id: int, db: Session):
+def get_PerformingArtist(venue_id: int, db: Session):
     query = """
  		SELECT a.email, a.first_name, a.last_name, a.stage_name, a.manager_email
 		FROM showtime s
-		INNER JOIN artists a ON s.artist_email = a.email
+		INNER JOIN artist a ON s.artist_email = a.email
 		WHERE s.venue_id = :venue_id;
     """
     result = db.execute(text(query), {"venue_id": venue_id})
@@ -103,7 +106,7 @@ def add_venue(name: str, location: str, img: str, db: Session):
 	db.commit()
  
 def write_review(comment: str, rating: int, venue_id: int, client_email: str, db: Session):
-    datestamp = datetime.datetime.now()
+    datestamp = datetime.now()
     insert_query = '''
         INSERT INTO review (comment, rating, venue_id, client_email, datestamp)
         VALUES (:comment, :rating, :venue_id, :client_email, :datestamp)
@@ -116,3 +119,17 @@ def write_review(comment: str, rating: int, venue_id: int, client_email: str, db
         "datestamp": datestamp
     })
     db.commit()
+
+def add_artist(showtime: ShowtimeInfo, db: Session):
+	insert_query = '''
+		INSERT INTO showtime (venue_id, datestamp, artist_email)
+		VALUES (:venue_id, :datestamp, :artist_email)
+	'''
+	converted_timestamp = datetime.fromtimestamp(showtime.timestamp)
+
+	db.execute(text(insert_query), {
+		"venue_id": showtime.venue_id,
+		"datestamp": converted_timestamp,
+		"artist_email": showtime.artist_email
+	})
+	db.commit()

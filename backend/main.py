@@ -7,6 +7,7 @@ from fastapi.middleware.cors import CORSMiddleware
 import models, crud
 from database import *
 from helpers import *
+from schemas import *
 
 app = FastAPI()
 
@@ -37,10 +38,10 @@ def read_user(db: Session = Depends(get_db)):
 
 @app.get("/admin/venues")
 def performingArtist(venue_id:int, db:Session = Depends(get_db)):
-    get_Artists = crud.get_PerformingArtists(venue_id, db)
-    if not get_Artists:
+    get_Artist = crud.get_PerformingArtist(venue_id, db)
+    if not get_Artist:
         raise HTTPException(status_code=410,detail="Please enter in an existing venue")
-    return get_Artists
+    return get_Artist
 
 @app.get("/reviews/venue_id")
 def get_reviewsByVenue(venue_id:int, db:Session=Depends(get_db)):
@@ -86,3 +87,8 @@ def register_user(email: str, first: str, last: str, password: str, db: Session 
 def add_venue(name: str, location: str, img:str, db: Session = Depends(get_db)):
 	crud.add_venue(name, location, img, db)
 	return {"message": "Success! Venue has been added."}
+
+@app.post("/admin/venue/artist")
+def add_artist(showtime: ShowtimeInfo = Depends(), db: Session = Depends(get_db)):
+	crud.add_artist(showtime, db)
+	return {"message": "Success! An artist has been added to the venue."}
