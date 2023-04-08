@@ -40,7 +40,8 @@ CREATE TABLE showtime (
 	datestamp TIMESTAMP,
 	artist_email varchar(255),
 	PRIMARY KEY(showtime_id),
-	FOREIGN KEY (venue_id) REFERENCES venue(venue_id)
+	FOREIGN KEY (venue_id) REFERENCES venue(venue_id),
+	FOREIGN KEY (artist_email) REFERENCES artist(email)
 );
 
 CREATE TABLE orders (
