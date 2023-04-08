@@ -91,6 +91,13 @@ function CheckoutPage() {
     return dateStr;
   }
 
+  function calculateTotal() {
+	if (selected.length === 0) return 0;
+	else {
+		return selected.reduce((total, obj) => total + obj.price, 0);
+	} 
+  }
+
   return (
     <div className="flex flex-col bg-dark min-h-screen text-white items-center">
       <div className="flex flex-row bg-white w-11/12 h-2/3 text-dark py-10 px-10 mt-40">
@@ -174,13 +181,11 @@ function CheckoutPage() {
           <div className="flex flex-col mt-5 border-t-2 border-dark/20 py-5 space-y-4 border-b-2 mb-12 w-full">
             <div className="flex flex-row justify-between text-2xl">
               <h3>Subtotal:</h3>
-              <p>$10.00</p>
+              <p>${calculateTotal().toFixed(2)}</p>
             </div>
             <div className="flex flex-row justify-between text-2xl">
               <h3>Total:</h3>
-              <p>
-                $10.00
-              </p>
+              <p>${(calculateTotal() * 1.05).toFixed(2)}</p>
             </div>
           </div>
           <button
