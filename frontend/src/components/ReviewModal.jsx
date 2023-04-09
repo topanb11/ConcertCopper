@@ -3,6 +3,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import { apiRoot } from "../../api/apiRoot";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useUserContext } from "../context/UserContext";
 
 const FORM_LABEL = "font-semibold text-xl";
 const FORM_CONTAINER = "pl-2 border-2 border-dark/50 h-10";
@@ -24,23 +25,23 @@ function ReviewModal({ toggleModal }) {
 		}})
 	}
 
-	const handleSubmit = () => {
-		axios
-			.post(apiRoot + "/reviews/:venueId", null,{
-				params:{
-					rating: review.rating,
-					name: review.name,
-					review :review.review,
-				},
-			})
-			.then((res) => {
-				alert(res.data.message);
-				console.log(review);
-				navigate("/");
-			})
-			.catch((err) => alert(err.response.data.detail));
-			
-		console.log("review submitted!", review);
+	const handleSubmit = (e) => {
+		e.preventDefault();
+		apiRoot.post("/reviews/:venueId", {
+			rating: review.rating,
+			name: review.name,
+			review: review.review
+		})
+		.then((res) => {
+			console.log(res.review)
+			alert(res.data.message);
+			console.log(review);
+			navigate("/");
+		})
+		.catch((error) => {
+			alert(error.response.data.detail);
+		});
+		
 	};
 
 	return ( 
@@ -65,7 +66,7 @@ function ReviewModal({ toggleModal }) {
 					</form>
 					<button 
 						className="bg-primary text-white w-48 h-12 justify-self-stretch tracking-widest font-bold rounded-lg hover:bg-primaryDark ease-in duration-200"
-						onClick={() => handleSubmit()}
+						onClick={(e) => handleSubmit(e)}
 					>
 						SUBMIT REVIEW
 					</button>

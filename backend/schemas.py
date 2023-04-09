@@ -5,6 +5,7 @@ from datetime import date
 app = FastAPI()
 
 class ShowtimeInfo(BaseModel):
-		venue_id: int
-		artist_email: str
-		timestamp: int
+	venue_id: int
+	artist_email: str
+	timestamp: int
+	
