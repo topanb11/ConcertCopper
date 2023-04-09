@@ -20,10 +20,11 @@ function CheckoutPage() {
   const [artists, setArtists] = useState([]);
   const [seats, setSeats] = useState([]);
   const [selected, setSelected] = useState([]);
+
   useEffect(() => {
     apiRoot
       .get("/venues/:venue_id", {
-        params: { venue_id: venueId },
+        params: { venue_id: venueId }
       })
       .then((res) => setArtists(res.data));
   }, []);
