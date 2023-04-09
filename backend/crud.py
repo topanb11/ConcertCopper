@@ -50,7 +50,7 @@ def validate_user(email: str, password: str, db: Session):
         WHERE u.email=:email
     '''
     query = f'''
-        SELECT first_name, last_name, admin_flag
+        SELECT u.first_name, u.last_name, u.admin_flag, u.email
         FROM users u
         WHERE u.email=:email AND u.pw=:password
     '''
@@ -92,6 +92,43 @@ def register_user(email: str, first: str, last: str, password: str, db: Session)
     })
     db.commit()
 
+def process_order(payment_info: PaymentInfo, db: Session):
+	query = '''
+	WITH 
+		showtime_seats AS (
+			SELECT seat.*, showtime.showtime_id AS st_showtime_id
+			FROM seat 
+			JOIN showtime ON seat.showtime_id = showtime.showtime_id 
+		),
+		selected_showtime AS (
+			SELECT s.showtime_id
+			FROM showtime_seats s
+			WHERE s.seat_id = :seat_id 
+		),
+		inserted_order AS (
+			INSERT INTO orders (total, client_email, showtime_id)
+			VALUES (:total, :email, (SELECT showtime_id FROM selected_showtime))
+			RETURNING order_id
+		)
+		
+	UPDATE seat
+	SET order_id = inserted_order.order_id
+	FROM inserted_order
+	WHERE seat_id IN :id_list;
+    '''
+	id_list = []
+	total = 0
+	for seat in payment_info.order:
+		total += seat.price
+		id_list.append(seat.seat_id)
+    
+	db.execute(text(query), {
+        "seat_id": id_list[0],
+		"id_list": tuple(id_list),
+        "total": total,
+        "email": payment_info.user.email,
+	})
+	db.commit()
 
 def add_venue(name: str, location: str, img: str, db: Session):
     insert_query = '''

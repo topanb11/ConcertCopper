@@ -69,7 +69,13 @@ def get_all_artists(venue_id: int, db: Session = Depends(get_db)):
 @app.post("/review")
 def write_review(comment: str, rating: int, venue_id:int, client_email: str, db: Session = Depends(get_db)):
 	crud.write_review(comment,rating, venue_id, client_email,db)
-	return{"message":"Success! Review has been added."}
+	return {"message":"Success! Review has been added."}
+
+
+@app.post("/checkout")
+def process_order(payment_info: PaymentInfo = Depends(), db: Session = Depends(get_db)):
+	crud.process_order(payment_info, db)
+	return {"message": "Success! Your payment has been processed."}
 
 
 @app.get("/reviews/venue_id")
@@ -87,7 +93,7 @@ def add_venue(name: str, location: str, img:str, db: Session = Depends(get_db)):
 
 
 @app.post("/admin/venue/artist")
-def add_artist(showtime: ShowtimeInfo = Depends(), db: Session = Depends(get_db)):
+def add_artist_to_venue(showtime: ShowtimeInfo = Depends(), db: Session = Depends(get_db)):
 	crud.add_artist(showtime, db)
 	return {"message": "Success! An artist has been added to the venue."}
 
