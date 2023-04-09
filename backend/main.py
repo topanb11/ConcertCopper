@@ -45,10 +45,10 @@ def login_user(user: UserInfo, db: Session = Depends(get_db)):
 
 
 @app.post("/register")
-def register_user(email: str, first: str, last: str, password: str, db: Session = Depends(get_db)):
+def register_user(user: UserInfo, db: Session = Depends(get_db)):
 	result = 0
-	if validate_email(email):
-		result = crud.register_user(email, password, first, last, db)
+	if validate_email(user.email):
+		result = crud.register_user(user, db)
 		if result == -1:
 			raise HTTPException(status_code=415, detail="User already exists in system.")
 		return {"message": "Success! Your account has been registered!"}

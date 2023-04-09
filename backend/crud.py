@@ -68,7 +68,7 @@ def validate_user(user: UserInfo, db: Session):
         return -2
 
 
-def register_user(email: str, first: str, last: str, password: str, db: Session):
+def register_user(user: UserInfo, db: Session):
     exists_query = '''
         SELECT *
         FROM users u
@@ -80,15 +80,15 @@ def register_user(email: str, first: str, last: str, password: str, db: Session)
         VALUES (:email, :password, :first, :last, false)
     '''
     # check if user already exists in db
-    exists_result = db.execute(text(exists_query), {"email": email})
+    exists_result = db.execute(text(exists_query), {"email": user.email})
     if len(exists_result.fetchall()) == 1:
         return -1
 
     db.execute(text(insert_query), {
-        "email": email,
-        "password": password,
-        "first": first,
-        "last": last
+        "email": user.email,
+        "password": user.password,
+        "first": user.first,
+        "last": user.last
     })
     db.commit()
 
