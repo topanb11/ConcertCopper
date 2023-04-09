@@ -21,12 +21,10 @@ function LoginPage() {
   const handleClick = (event) => {
     event.preventDefault();
     apiRoot
-      .post("/login", null, {
-        params: {
-          email: account.email,
-          password: account.password,
-        },
-      })
+      .post("/login", {
+		email: account.email,
+		password: account.password,
+	  })
       .then((res) => {
 		const user = {
 			...res.data,

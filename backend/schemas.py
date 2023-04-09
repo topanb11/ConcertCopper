@@ -15,6 +15,12 @@ class SeatInfo(BaseModel):
 	datestamp: int
 	price: int
 
+class UserInfo(BaseModel):
+	email: str
+	password: str
+	first: str | None
+	last: str | None
+
 class PaymentInfo(BaseModel):
 	user: str
 	order: List[SeatInfo]

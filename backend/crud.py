@@ -43,7 +43,7 @@ def get_venue_reviews(venue_id: int, db: Session):
     return [dict(zip(columns, row)) for row in result]
 
 
-def validate_user(email: str, password: str, db: Session):
+def validate_user(user: UserInfo, db: Session):
     exists_query = '''
         SELECT *
         FROM users u
@@ -55,11 +55,11 @@ def validate_user(email: str, password: str, db: Session):
         WHERE u.email=:email AND u.pw=:password
     '''
     # checking if user exists first
-    exists_result = db.execute(text(exists_query), {"email": email})
+    exists_result = db.execute(text(exists_query), {"email": user.email})
     if len(exists_result.fetchall()) == 0:
         return -1
 
-    result = db.execute(text(query), {"email": email, "password": password})
+    result = db.execute(text(query), {"email": user.email, "password": user.password})
     columns = result.keys()
     user = result.fetchone()
     if user:
