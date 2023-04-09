@@ -73,7 +73,7 @@ def write_review(comment: str, rating: int, venue_id:int, client_email: str, db:
 
 
 @app.post("/checkout")
-def process_order(payment_info: PaymentInfo = Depends(), db: Session = Depends(get_db)):
+def process_order(payment_info: PaymentInfo, db: Session = Depends(get_db)):
 	crud.process_order(payment_info, db)
 	return {"message": "Success! Your payment has been processed."}
 

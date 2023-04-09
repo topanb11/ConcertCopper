@@ -49,7 +49,7 @@ def validate_user(email: str, password: str, db: Session):
         FROM users u
         WHERE u.email=:email
     '''
-    query = f'''
+    query = '''
         SELECT u.first_name, u.last_name, u.admin_flag, u.email
         FROM users u
         WHERE u.email=:email AND u.pw=:password
@@ -126,7 +126,7 @@ def process_order(payment_info: PaymentInfo, db: Session):
         "seat_id": id_list[0],
 		"id_list": tuple(id_list),
         "total": total,
-        "email": payment_info.user.email,
+        "email": payment_info.user
 	})
 	db.commit()
 

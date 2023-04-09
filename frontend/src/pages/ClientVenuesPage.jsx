@@ -35,7 +35,6 @@ const data = [
 ]
 function ClientVenuesPage() {
     const { user } = useUserContext()
-	console.log(user)
     return ( 
         <div className="bg-dark min-h-screen text-white">
             <div className="flex flex-col justify-center gap-1 text-2xl px-12 pt-48">

@@ -20,7 +20,6 @@ function CheckoutPage() {
   const [artists, setArtists] = useState([]);
   const [seats, setSeats] = useState([]);
   const [selected, setSelected] = useState([]);
-
   useEffect(() => {
     apiRoot
       .get("/venues/:venue_id", {
@@ -55,18 +54,20 @@ function CheckoutPage() {
   };
 
   const handleSubmit = () => {
-    // Replace with a POST API call later
-
-    if (user) {
-      // Logged in user is checking out
-      console.log(user, selected);
-    } else {
-      // Guest user is checking out
-      console.log(checkout, selected);
-    }
+	selected.forEach((seat) => {
+		seat.seat_id = seat.seatId
+		seat.seat_name = seat.seatName
+		delete seat.seatId
+		delete seat.seatName
+	})
+	apiRoot.post("/checkout", {
+	user: user.user.signedIn ? user.user.email : checkout.email,
+	order: selected
+	})
+	.catch((err) => console.log(err))
     alert(
       `Your order has been processed ${
-        user.user !== null ? user.user.first_name : checkout.firstName
+        user.signedIn ? user.user.firstName : checkout.firstName
       }. Enjoy your show!`
     );
   };
@@ -183,7 +184,7 @@ function CheckoutPage() {
             </div>
             <div className="flex flex-row justify-between text-2xl">
               <h3>Total:</h3>
-              <p>${(calculateTotal() * 1.05).toFixed(2)}</p>
+              <p>${(calculateTotal()).toFixed(2)}</p>
             </div>
           </div>
           <button
