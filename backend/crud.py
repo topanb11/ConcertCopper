@@ -43,23 +43,23 @@ def get_venue_reviews(venue_id: int, db: Session):
     return [dict(zip(columns, row)) for row in result]
 
 
-def validate_user(email: str, password: str, db: Session):
+def validate_user(user: UserInfo, db: Session):
     exists_query = '''
         SELECT *
         FROM users u
         WHERE u.email=:email
     '''
-    query = f'''
-        SELECT first_name, last_name, admin_flag
+    query = '''
+        SELECT u.first_name, u.last_name, u.admin_flag, u.email
         FROM users u
         WHERE u.email=:email AND u.pw=:password
     '''
     # checking if user exists first
-    exists_result = db.execute(text(exists_query), {"email": email})
+    exists_result = db.execute(text(exists_query), {"email": user.email})
     if len(exists_result.fetchall()) == 0:
         return -1
 
-    result = db.execute(text(query), {"email": email, "password": password})
+    result = db.execute(text(query), {"email": user.email, "password": user.password})
     columns = result.keys()
     user = result.fetchone()
     if user:
@@ -68,7 +68,7 @@ def validate_user(email: str, password: str, db: Session):
         return -2
 
 
-def register_user(email: str, first: str, last: str, password: str, db: Session):
+def register_user(user: UserInfo, db: Session):
     exists_query = '''
         SELECT *
         FROM users u
@@ -80,18 +80,55 @@ def register_user(email: str, first: str, last: str, password: str, db: Session)
         VALUES (:email, :password, :first, :last, false)
     '''
     # check if user already exists in db
-    exists_result = db.execute(text(exists_query), {"email": email})
+    exists_result = db.execute(text(exists_query), {"email": user.email})
     if len(exists_result.fetchall()) == 1:
         return -1
 
     db.execute(text(insert_query), {
-        "email": email,
-        "password": password,
-        "first": first,
-        "last": last
+        "email": user.email,
+        "password": user.password,
+        "first": user.first,
+        "last": user.last
     })
     db.commit()
 
+def process_order(payment_info: PaymentInfo, db: Session):
+	query = '''
+	WITH 
+		showtime_seats AS (
+			SELECT seat.*, showtime.showtime_id AS st_showtime_id
+			FROM seat 
+			JOIN showtime ON seat.showtime_id = showtime.showtime_id 
+		),
+		selected_showtime AS (
+			SELECT s.showtime_id
+			FROM showtime_seats s
+			WHERE s.seat_id = :seat_id 
+		),
+		inserted_order AS (
+			INSERT INTO orders (total, client_email, showtime_id)
+			VALUES (:total, :email, (SELECT showtime_id FROM selected_showtime))
+			RETURNING order_id
+		)
+		
+	UPDATE seat
+	SET order_id = inserted_order.order_id
+	FROM inserted_order
+	WHERE seat_id IN :id_list;
+    '''
+	id_list = []
+	total = 0
+	for seat in payment_info.order:
+		total += seat.price
+		id_list.append(seat.seat_id)
+    
+	db.execute(text(query), {
+        "seat_id": id_list[0],
+		"id_list": tuple(id_list),
+        "total": total,
+        "email": payment_info.user
+	})
+	db.commit()
 
 def add_venue(name: str, location: str, img: str, db: Session):
     insert_query = '''

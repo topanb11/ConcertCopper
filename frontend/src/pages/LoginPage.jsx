@@ -21,19 +21,21 @@ function LoginPage() {
   const handleClick = (event) => {
     event.preventDefault();
     apiRoot
-      .post("/login", null, {
-        params: {
-          email: account.email,
-          password: account.password,
-        },
-      })
+      .post("/login", {
+		email: account.email,
+		password: account.password,
+	  })
       .then((res) => {
 		const user = {
 			...res.data,
+			["firstName"]: res.data.first_name,
+			["lastName"]: res.data.last_name,
 			["adminFlag"]: res.data.admin_flag,
 			["signedIn"]: true
 		};
 		delete user.admin_flag;
+		delete user.first_name;
+		delete user.last_name;
         setUser(user)
 		navigate("/");
       })

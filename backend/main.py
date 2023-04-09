@@ -34,8 +34,8 @@ def get_db():
 
 
 @app.post("/login")
-def login_user(email: str, password: str, db: Session = Depends(get_db)):
-	result = crud.validate_user(email, password, db)
+def login_user(user: UserInfo, db: Session = Depends(get_db)):
+	result = crud.validate_user(user, db)
 	if result == -1:
 		raise HTTPException(status_code=410, detail="User does not exist in system.")
 	elif result == -2:
@@ -45,10 +45,10 @@ def login_user(email: str, password: str, db: Session = Depends(get_db)):
 
 
 @app.post("/register")
-def register_user(email: str, first: str, last: str, password: str, db: Session = Depends(get_db)):
+def register_user(user: UserInfo, db: Session = Depends(get_db)):
 	result = 0
-	if validate_email(email):
-		result = crud.register_user(email, password, first, last, db)
+	if validate_email(user.email):
+		result = crud.register_user(user, db)
 		if result == -1:
 			raise HTTPException(status_code=415, detail="User already exists in system.")
 		return {"message": "Success! Your account has been registered!"}
@@ -69,7 +69,13 @@ def get_all_artists(venue_id: int, db: Session = Depends(get_db)):
 @app.post("/review")
 def write_review(comment: str, rating: int, venue_id:int, client_email: str, db: Session = Depends(get_db)):
 	crud.write_review(comment,rating, venue_id, client_email,db)
-	return{"message":"Success! Review has been added."}
+	return {"message":"Success! Review has been added."}
+
+
+@app.post("/checkout")
+def process_order(payment_info: PaymentInfo, db: Session = Depends(get_db)):
+	crud.process_order(payment_info, db)
+	return {"message": "Success! Your payment has been processed."}
 
 
 @app.get("/reviews/venue_id")
@@ -87,7 +93,7 @@ def add_venue(name: str, location: str, img:str, db: Session = Depends(get_db)):
 
 
 @app.post("/admin/venue/artist")
-def add_artist(showtime: ShowtimeInfo = Depends(), db: Session = Depends(get_db)):
+def add_artist_to_venue(showtime: ShowtimeInfo = Depends(), db: Session = Depends(get_db)):
 	crud.add_artist(showtime, db)
 	return {"message": "Success! An artist has been added to the venue."}
 

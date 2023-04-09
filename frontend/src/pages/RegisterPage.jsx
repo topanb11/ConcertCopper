@@ -38,13 +38,11 @@ function RegisterPage() {
 			alert("Password field cannot be empty")
 		else {
 			apiRoot
-				.post("/register", null, {
-					params: {
-						email: form.email,
-						first: form.first,
-						last: form.last,
-						password: form.password,
-					},
+				.post("/register", {
+					email: form.email,
+					first: form.first,
+					last: form.last,
+					password: form.password,
 				})
 				.then((res) => {
 					// Do something with context after they register

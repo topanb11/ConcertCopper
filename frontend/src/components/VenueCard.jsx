@@ -11,7 +11,7 @@ function VenueCard({name, location, img, venueId}) {
     const {user} = useUserContext()
 
     const handleClick = (path) => {
-		navigate(path, {state: {venueId: venueId}});
+		navigate(`${path}/${venueId}`, {state: {venueId: venueId}});
 	}
 
     return (
@@ -22,8 +22,8 @@ function VenueCard({name, location, img, venueId}) {
                 <h3 className="text-sm">{location}</h3>
             </div>
             {!user.adminFlag ? <div className="flex flex-col gap-3 mt-auto">
-                <button onClick={() => handleClick("/checkout/:venueId")} className={BUTTON_CONTAINER}>VIEW TICKETS</button>
-                <button onClick={() => handleClick("/reviews/:venueId")} className={BUTTON_CONTAINER}>REVIEWS</button>
+                <button onClick={() => handleClick("/checkout")} className={BUTTON_CONTAINER}>VIEW TICKETS</button>
+                <button onClick={() => handleClick("/reviews")} className={BUTTON_CONTAINER}>REVIEWS</button>
             </div>: 
             <div className="flex justify-center items-center">
                 <button onClick={() => {setModal(prev => !prev)}} className={BUTTON_CONTAINER}>EDIT VENUE</button>
