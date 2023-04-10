@@ -2,17 +2,19 @@ import { useState } from "react";
 import CloseIcon from '@mui/icons-material/Close';
 import { apiRoot } from "../../api/apiRoot";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useUserContext } from "../context/UserContext";
 
 const FORM_LABEL = "font-semibold text-xl";
 const FORM_CONTAINER = "pl-2 border-2 border-dark/50 h-10";
 
 function ReviewModal({ toggleModal }) {
+	const location = useLocation();
+	const venueId = location.state.venueId;
 	//const navigate = useNavigate();
 	const [review, setReview] = useState({
 		name: "",
-		review: "",
+		comment: "",
 		rating: 0
 	});
 
@@ -27,22 +29,23 @@ function ReviewModal({ toggleModal }) {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		apiRoot.post("/reviews/:venueId", {
+		apiRoot.post("/review", {
 			rating: review.rating,
-			name: review.name,
-			review: review.review
+			client_email: review.name,
+			comment: review.comment,
+			venue_id: venueId
 		})
 		.then((res) => {
 			console.log(res.review)
 			alert(res.data.message);
 			console.log(review);
-			navigate("/");
 		})
 		.catch((error) => {
-			alert(error.response.data.detail);
+			console.log(error);
 		});
 		
 	};
+
 
 	return ( 
 		<div 
@@ -57,12 +60,12 @@ function ReviewModal({ toggleModal }) {
 				</div>
 				<div className="flex flex-col h-5/6 justify-around">
 					<form className="flex flex-col w-3/6 gap-4">
-						<label className={FORM_LABEL}>Your rating</label>
+						<label className={FORM_LABEL}>Rating</label>
 						<input name="rating" type="Number" className={`${FORM_CONTAINER} w-1/6`} max={5} min={0} onChange={(e) => handleChange(e)}/>
-						<label className={FORM_LABEL}>Your name</label>
+						<label className={FORM_LABEL}>Email</label>
 						<input name="name" placeholder="Name" type="text" className={`${FORM_CONTAINER} w-2/6`} onChange={(e) => handleChange(e)}/>
 						<label className={FORM_LABEL}>Review</label>
-						<textarea name="review" placeholder="Your review!" type="text" className={`${FORM_CONTAINER} h-48 pt-2`} onChange={(e) => handleChange(e)}/>
+						<textarea name="comment" placeholder="Your review!" type="text" className={`${FORM_CONTAINER} h-48 pt-2`} onChange={(e) => handleChange(e)}/>
 					</form>
 					<button 
 						className="bg-primary text-white w-48 h-12 justify-self-stretch tracking-widest font-bold rounded-lg hover:bg-primaryDark ease-in duration-200"

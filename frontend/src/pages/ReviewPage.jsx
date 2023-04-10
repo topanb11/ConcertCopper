@@ -1,6 +1,7 @@
 import ReviewCard from "../components/ReviewCard";
 import ReviewModal from "../components/ReviewModal";
 import { useState } from "react";
+import { useLocation } from "react-router-dom";
 
 
 const data = [
@@ -32,6 +33,7 @@ const data = [
 ]
 
 function ReviewPage() {
+	const location = useLocation();
 	const [showModal, setShowModal] = useState(false);
 	const toggleModal = () => {
 		setShowModal(prevState => !prevState);
@@ -43,7 +45,7 @@ function ReviewPage() {
 			{/* Review Container */}
 			<div className="bg-white w-11/12 h-[60vh] text-dark px-5 py-5 mt-40">
 				<div className="flex flex-row justify-between mb-5 items-center">
-					<h1 className="text-3xl font-semibold">Reviews for Scotiabank Saddledome</h1>
+					<h1 className="text-3xl font-semibold">Reviews for {location.state.name}</h1>
 					<button 
 						className="bg-primary text-white text-lg w-40 h-12 font-bold rounded-lg hover:bg-primaryDark ease-in duration-200"
 						onClick={() => toggleModal()}
