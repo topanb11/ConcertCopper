@@ -31,6 +31,7 @@ CREATE TABLE venue (
 	venue_name varchar(255),
 	venue_location varchar(255),
 	venue_img varchar(255),
+	venue_description varchar(2000),
 	PRIMARY KEY(venue_id)
 );
 
@@ -100,14 +101,18 @@ VALUES
 	('tylercallme@gmail.com', 'Tyler', 'Boudelaire', 'Tyler The Creator', 'bnguyen@gmail.com', 'https://i.scdn.co/image/ab6761610000e5eb8278b782cbb5a3963db88ada'),
 	('nikiz@gmail.com', 'Niki', 'Zefanya', 'NIKI', 'bnguyen@gmail.com', 'https://upload.wikimedia.org/wikipedia/commons/f/fd/Niki_in_2022.png');
 
-INSERT INTO venue (venue_name, venue_location, venue_img)
+INSERT INTO venue (venue_name, venue_location, venue_description, venue_img)
 VALUES
-	('ScotiaBank Saddledome', 'Calgary, AB', 'https://upload.wikimedia.org/wikipedia/commons/0/0b/2020_Calgary_Saddledome.jpg'),
-	('Rogers Arena', 'Vancouver, BC', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQw50meWdOBxdav7dY-DPQ5jDvtBleyksk64xXCTEKY1XXEThQzpHmaf7qZ1eNrynM7CZk&usqp=CAU'),
-	('Machall', 'Calgary, AB', 'https://www.avenuecalgary.com/wp-content/uploads/2018/12/Detours-BellaConcertHall.jpg'),
-	('UBC Thunderdome', 'Calgary, AB', 'https://sportfacilities.ubc.ca/wp-content/uploads/2019/07/dmc-1-1170x487.jpg'),
-	('ScotiaBank Arena', 'Toronto, ON', 'https://upload.wikimedia.org/wikipedia/commons/5/57/Scotiabank_Arena_-_2018_%28cropped%29.jpg'),
-	('McMahon Stadium', 'Calgary, AB', 'https://upload.wikimedia.org/wikipedia/commons/a/a5/McMahon_Stadium_6.jpg');
+	('ScotiaBank Saddledome', 'Calgary, AB', 'Scotiabank Saddledome: The Scotiabank Saddledome is a multi-purpose arena located in Calgary, Alberta, Canada. It is home to the Calgary Flames of the National Hockey League (NHL) and is also a popular venue for concerts, trade shows, and other events. With a seating capacity of up to 19,289, the Saddledome is one of the largest indoor arenas in Canada and has hosted numerous high-profile events over the years.','https://upload.wikimedia.org/wikipedia/commons/0/0b/2020_Calgary_Saddledome.jpg'),
+	('Rogers Arena', 'Vancouver, BC', 'Rogers Arena in Vancouver: Rogers Arena is a state-of-the-art sports and entertainment facility located in the heart of downtown Vancouver, British Columbia. Home to the Vancouver Canucks of the NHL, the arena also hosts a wide variety of concerts, shows, and other events throughout the year. With a seating capacity of up to 18,910, Rogers Arena is one of the premier entertainment venues in Western Canada.
+','https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQw50meWdOBxdav7dY-DPQ5jDvtBleyksk64xXCTEKY1XXEThQzpHmaf7qZ1eNrynM7CZk&usqp=CAU'),
+	('Machall', 'Calgary, AB', 'MacHall in Calgary AB: MacHall is a bustling student center located on the campus of the University of Calgary in Calgary, Alberta. With numerous dining options, a student-run bar, and a wide range of services and resources for students, MacHall is a hub of activity and a vital part of campus life. The center also hosts a variety of events throughout the year, including concerts, guest speakers, and cultural events.
+', 'https://www.avenuecalgary.com/wp-content/uploads/2018/12/Detours-BellaConcertHall.jpg'),
+	('UBC Thunderdome', 'Calgary, AB', 'UBC Thunderdome: The UBC Thunderdome is a state-of-the-art sports facility located on the campus of the University of British Columbia in Vancouver, British Columbia. With a seating capacity of up to 7,500, the Thunderdome is home to the UBC Thunderbirds basketball and volleyball teams and hosts a variety of other sporting events throughout the year. The facility also includes a fitness center, athletic training facilities, and other amenities for athletes and fitness enthusiasts.
+', 'https://sportfacilities.ubc.ca/wp-content/uploads/2019/07/dmc-1-1170x487.jpg'),
+	('ScotiaBank Arena', 'Toronto, ON', 'Scotiabank Arena in Toronto: Scotiabank Arena is a world-class sports and entertainment venue located in the heart of downtown Toronto, Ontario. Home to the Toronto Maple Leafs of the NHL and the Toronto Raptors of the NBA, the arena also hosts a wide range of concerts, shows, and other events throughout the year. With a seating capacity of up to 19,800, Scotiabank Arena is one of the premier entertainment venues in Canada.
+', 'https://upload.wikimedia.org/wikipedia/commons/5/57/Scotiabank_Arena_-_2018_%28cropped%29.jpg'),
+	('McMahon Stadium', 'Calgary, AB', 'McMahon Stadium in Calgary: McMahon Stadium is a renowned outdoor sports stadium located in Calgary, Alberta. Home to the Calgary Stampeders of the Canadian Football League (CFL), the stadium also hosts a variety of other sporting events throughout the year, including soccer and rugby. With a seating capacity of up to 35,650, McMahon Stadium is one of the largest sports venues in Western Canada and has played host to numerous high-profile events over the years.', 'https://upload.wikimedia.org/wikipedia/commons/a/a5/McMahon_Stadium_6.jpg');
 	
 INSERT INTO showtime (venue_id, datestamp, artist_email)
 VALUES
