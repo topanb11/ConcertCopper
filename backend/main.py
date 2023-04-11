@@ -104,3 +104,8 @@ def get_performing_artists(venue_id:int, db:Session = Depends(get_db)):
 	if not get_artist:
 			raise HTTPException(status_code=410,detail="Please enter in an existing venue")
 	return get_artist
+
+@app.get("/artists")
+def get_artists(db:Session = Depends(get_db)):
+    result = crud.all_artists(db)
+    return result

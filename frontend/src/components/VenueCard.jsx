@@ -15,7 +15,7 @@ function VenueCard({name, location, img, venueId}) {
 	}
 
     return (
-        <div className="flex flex-col bg-white text-dark gap-5 rounded-lg p-5">
+        <div className="flex flex-col bg-white text-dark gap-5 rounded-lg p-5 mb-5">
             <img className="rounded-lg w-80" src={img}/>
             <div>
                 <h2 className="font-bold">{name}</h2>
@@ -28,7 +28,7 @@ function VenueCard({name, location, img, venueId}) {
             <div className="flex justify-center items-center">
                 <button onClick={() => {setModal(prev => !prev)}} className={BUTTON_CONTAINER}>EDIT VENUE</button>
             </div>}
-            {modal && <EditVenueModal setModal={setModal} name={name}/>}
+            {modal && <EditVenueModal setModal={setModal} name={name} venueId={venueId}/>}
         </div>
     )
 }

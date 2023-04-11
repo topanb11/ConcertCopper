@@ -204,12 +204,33 @@ def add_artist(showtime: ShowtimeInfo, db: Session):
     insert_query = '''
         INSERT INTO showtime (venue_id, datestamp, artist_email)
         VALUES (:venue_id, :datestamp, :artist_email)
+        INSERT INTO seat (seat_name, price, order_id, showtime_id)
+        VALUES 
+        ('1A', 400, null, :showtimeID),
+        ('1B', 400, null, :showtimeID),
+        ('1C', 400, null, :showtimeID),
+        ('2A', 250, null, :showtimeID),
+        ('2B', 250, null, :showtimeID),
+        ('2C', 250, null, :showtimeID),
+        ('3A', 150, null, :showtimeID),
+        ('3B', 150, null, :showtimeID),
+        ('3C', 150, null, :showtimeID);
     '''
     converted_timestamp = datetime.fromtimestamp(showtime.timestamp)
 
     db.execute(text(insert_query), {
         "venue_id": showtime.venue_id,
         "datestamp": converted_timestamp,
-        "artist_email": showtime.artist_email
+        "artist_email": showtime.artist_email,
+        "showtimeID" : showtime.showtime_id
     })
     db.commit()
+
+def all_artists(db:Session):
+    insert_query = '''
+        SELECT stage_name
+        FROM artist
+    '''
+    result = db.execute(text(insert_query))
+    columns = result.keys()
+    return[dict(zip(columns,row)) for row in result]
