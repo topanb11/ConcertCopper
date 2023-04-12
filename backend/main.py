@@ -109,3 +109,13 @@ def get_performing_artists(venue_id:int, db:Session = Depends(get_db)):
 def get_artists(db:Session = Depends(get_db)):
     result = crud.all_artists(db)
     return result
+
+@app.post("/artist")
+def add_artist(artist:ArtistInfo, db:Session = Depends(get_db)):
+    crud.add_artist_to_db(artist, db)
+    return {"message": "Success! An artist has been added to the database."}
+
+@app.delete("/admin/venue/artist")
+def delete_artist(showtimeID: int, db:Session = Depends(get_db)):
+    crud.delete_showtime(showtimeID, db)
+    return{"meesage": "Success! A showtime has been removed."}

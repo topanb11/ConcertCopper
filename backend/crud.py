@@ -10,7 +10,7 @@ from schemas import *
 
 def get_performing_artists(venue_id: int, db: Session):
     query = """
-        SELECT a.email, a.artist_img, a.first_name, a.last_name, a.stage_name, a.manager_email, s.datestamp, m.first_name as manager_first, m.last_name as manager_last
+        SELECT a.email, a.artist_img, a.first_name, a.last_name, a.stage_name, a.manager_email, s.datestamp, m.first_name as manager_first, m.last_name as manager_last, s.showtime_id
         FROM showtime s
         INNER JOIN artist a ON s.artist_email = a.email
         INNER JOIN artist_manager m ON a.manager_email = m.email
@@ -241,3 +241,28 @@ def all_artists(db:Session):
     result = db.execute(text(insert_query))
     columns = result.keys()
     return[dict(zip(columns,row)) for row in result]
+
+def add_artist_to_db(artist:ArtistInfo, db:Session):
+    insert_query = '''
+        INSERT INTO artist(email, first_name, last_name, stage_name, manager_email, artist_img)
+        VALUES(:email, :first, :last, :stage, :manager, :img)
+    '''
+    db.execute(text(insert_query), {
+        "email": artist.email,
+        "first": artist.first_name,
+        "last": artist.last_name,
+        "stage": artist.stage_name,
+        "manager": artist.manager_email,
+        "img": artist.artist_img
+    })
+    db.commit()
+
+def delete_showtime(showtimeID: int, db:Session):
+    insert_query = '''
+        DELETE FROM seat s WHERE s.showtime_id = :showtime;
+        DELETE FROM showtime a WHERE a.showtime_id = :showtime;
+    '''
+    db.execute(text(insert_query), {
+        "showtime": showtimeID
+    })
+    db.commit()

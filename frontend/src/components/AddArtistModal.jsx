@@ -2,7 +2,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import { useEffect, useState } from 'react';
 import { apiRoot } from "../../api/apiRoot"
 
-export default function AddArtistModal({setArtistModal, venueId}) {
+export default function AddArtistModal({setArtistModal, venueId, setFetch}) {
     const [artists, setArtists] = useState();
     const [artistForm, setArtistForm] = useState({venue_id: venueId, artist_email:"", timestamp:""})
     useEffect(() => {
@@ -27,6 +27,7 @@ export default function AddArtistModal({setArtistModal, venueId}) {
         .catch((error) => {
             console.log(error)
         })
+        setFetch(prev => !prev)
         setArtistModal(prev => !prev)
     }
     function changeHandler(event) {

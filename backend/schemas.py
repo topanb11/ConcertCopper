@@ -36,3 +36,11 @@ class VenueInfo(BaseModel):
     venue_location: str
     venue_img: str
     venue_description: str
+
+class ArtistInfo(BaseModel):
+    email: str
+    first_name: str
+    last_name: str
+    stage_name: str
+    manager_email: str
+    artist_img: str
