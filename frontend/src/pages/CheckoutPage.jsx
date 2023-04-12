@@ -95,7 +95,7 @@ function CheckoutPage() {
   }
 
   function calculateTotal() {
-	if (selected.length === 0) return 0;
+	if (selected.length === 0 || selected[0] === undefined) return 0;
 	else return selected.reduce((total, obj) => total + obj.price, 0);
   }
 
