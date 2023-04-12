@@ -63,7 +63,7 @@ export default function EditVenueModal({setModal, name, venueId}) {
                     </div>
                 </div>
             </div>
-            {artistModal && <AddArtistModal setArtistModal={setArtistModal}/>}
+            {artistModal && <AddArtistModal setArtistModal={setArtistModal} venueId={venueId}/>}
         </div>
     )
 };
