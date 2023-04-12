@@ -1,40 +1,14 @@
+import { useEffect, useState, useContext } from "react";
 import ReviewCard from "../components/ReviewCard";
 import ReviewModal from "../components/ReviewModal";
-import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-
-
-// const data = [
-// 	{
-// 		name: "Rahat Chowdhury",
-// 		rating: 5,
-// 		review: "omgg I saw the Weeknd and he was so gooood! The arena definitely made his vocals sound better ",
-// 		date: 1676163288
-// 	},
-// 	{
-// 		name: "Rayhan Khalid",
-// 		rating: 1,
-// 		review: "IT'S NOT BY ANY TRAINSTATIONS",
-// 		date: 1675212888
-// 	},
-// 	{
-// 		name: "Gabe Ngu",
-// 		rating: 2,
-// 		review: "Don't sit in section F it smells so bad",
-// 		date: 1678150488
-// 	},
-// 	{
-// 		name: "Topan Budiman",
-// 		rating: 4,
-// 		review: "it's aight",
-// 		date: 1678151792
-// 	},
-
-]
+import { apiRoot } from "../../api/apiRoot";
+import { UserContext } from "../context/UserContext";
 
 function ReviewPage() {
 	const location = useLocation();
 	const venueId = location.state.venueId;
+	const { user } = useContext(UserContext)
 	const [showModal, setShowModal] = useState(false);
 	const [data, setData] = useState([])
 
@@ -51,31 +25,16 @@ function ReviewPage() {
 	const toggleModal = () => {
 		setShowModal(prevState => !prevState);
 	}
-	//const { user } = useUserContext()
-    //const navigate = useNavigate();
-    const[review, setReview] = useState([]);
-
 
 	useEffect(() => {
 		apiRoot
-			.get("/reviews/venue_id", {
+			.get("/reviews", {
 				params: { venue_id: venueId }
 		  })
-		  .then((res) => {
-			console.log(res);
-			setReview(res.data);
-		  })
-		  .catch((err) => {
-			console.log(err);
-		  });
+		  .then((res) => setReview(res.data))
+		  .catch((err) => alert(err.response.data.detail));
 	  }, []);
 	
-	  function convertUnix(datestamp) {
-		return Math.floor(Date.parse(datestamp) / 1000);
-	  }
-	  
-	  
-
 	return (  
 		<div className="flex flex-col bg-dark min-h-screen text-white items-center">
 			{showModal ? <ReviewModal toggleModal={toggleModal}/> : null}
@@ -93,14 +52,9 @@ function ReviewPage() {
 
 				{/* Render review cards in carousel */}
 				<div className="flex flex-col h-5/6 overflow-scroll gap-8">
-					{review.sort((a, b) => b.datestamp - a.datestamp).map((review) => (
-						<ReviewCard 
-						key={review.venue_id}
-                        name={`${review["first_name"]} ${review["last_name"]}`}
-                        review={review.comment}
-                        rating={review.rating}
-						date = {convertUnix(review.datestamp)}
-                        venueId={review.venue_id}
+					{data.sort((a, b) => b.datestamp - a.datestamp).map((data, index) => (
+						<ReviewCard key={index}
+							{...data}
 						/>
 					))}
 				</div>
