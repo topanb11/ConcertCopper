@@ -1,10 +1,11 @@
 import { useState } from "react";
 import CloseIcon from '@mui/icons-material/Close';
+import { apiRoot } from "../../api/apiRoot";
 
 export default function AddVenueModal({setVenueModal}) {
     const LABEL = "block text-dark/50 font-semibold text-2xl";
     const INPUT_FIELD = "rounded-md pl-3 h-14 w-full border-solid border-2 border-dark/50 mb-4 text-lg";
-    const [venueForm, setVenueForm] = useState({venueName:"", location:"", img:"", desc:""})
+    const [venueForm, setVenueForm] = useState({venue_name:"", venue_location:"", venue_img:"", venue_description:""})
     function handler(event) {
         setVenueForm((prevForm) => {
             return {
@@ -13,7 +14,17 @@ export default function AddVenueModal({setVenueModal}) {
             };
         });
     }
-    function submitHandler(){
+    function submitHandler(event){
+        event.preventDefault()
+        apiRoot.post("/admin/venue", venueForm)
+        .then((res) => {
+            if(res.status == 200){
+                console.log("Success")
+            }
+        })
+        .catch((error) => {
+            console.log(error)
+        })
         setVenueModal(prev => !prev)
     }
     return(
@@ -51,7 +62,7 @@ export default function AddVenueModal({setVenueModal}) {
                         ></input>
                         <label className={LABEL}>Description</label>
                         <input
-                            name="idesc"
+                            name="desc"
                             type="text"
                             placeholder="Description"
                             className={INPUT_FIELD}

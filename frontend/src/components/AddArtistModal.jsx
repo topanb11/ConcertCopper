@@ -18,10 +18,11 @@ export default function AddArtistModal({setArtistModal, venueId}) {
     },[]);
     function submitHandler(event){
         event.preventDefault()
-        apiRoot.post("/admin/venue/artist", {
-            venue_id: artistForm.venue_id,
-            artist_email: artistForm.artist_email,
-            timestamp: artistForm.timestamp
+        apiRoot.post("/admin/venue/artist", artistForm)
+        .then((res) => {
+            if(res.status == 200){
+                console.log("Success")
+            }
         })
         .catch((error) => {
             console.log(error)
@@ -44,7 +45,6 @@ export default function AddArtistModal({setArtistModal, venueId}) {
             };
         });
     }
-    console.log(artistForm)
     return(
         <div className="flex top-0 left-0 bg-dark/90 z-50 fixed h-screen w-screen items-center justify-center">
             <div className="w-1/2 h-1/2 bg-white p-5 rounded-lg">

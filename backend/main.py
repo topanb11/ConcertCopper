@@ -87,8 +87,8 @@ def process_order(payment_info: PaymentInfo, db: Session = Depends(get_db)):
 
 
 @app.post("/admin/venue")
-def add_venue(name: str, location: str, img:str, db: Session = Depends(get_db)):
-	crud.add_venue(name, location, img, db)
+def add_venue(venue:VenueInfo, db: Session = Depends(get_db)):
+	crud.add_venue(venue, db)
 	return {"message": "Success! Venue has been added."}
 
 

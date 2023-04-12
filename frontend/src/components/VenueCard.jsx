@@ -19,7 +19,7 @@ function VenueCard({name, location, img, venueId}) {
 
     return (
         <div className="flex flex-col bg-white text-dark gap-5 rounded-lg p-5 mb-5">
-            <img className="rounded-lg w-80" src={img}/>
+            <img className="rounded-lg w-80 h-60 object-cover" src={img}/>
             <div>
                 <h2 className="font-bold">{name}</h2>
                 <h3 className="text-sm">{location}</h3>
