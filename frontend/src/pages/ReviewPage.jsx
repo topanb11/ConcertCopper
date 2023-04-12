@@ -3,12 +3,10 @@ import ReviewCard from "../components/ReviewCard";
 import ReviewModal from "../components/ReviewModal";
 import { useLocation } from "react-router-dom";
 import { apiRoot } from "../../api/apiRoot";
-import { UserContext } from "../context/UserContext";
 
 function ReviewPage() {
 	const location = useLocation();
 	const venueId = location.state.venueId;
-	const { user } = useContext(UserContext)
 	const [showModal, setShowModal] = useState(false);
 	const [fetch, setFetch] = useState(false);
 	const [data, setData] = useState([])
