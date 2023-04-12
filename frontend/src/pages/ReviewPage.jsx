@@ -1,36 +1,34 @@
 import ReviewCard from "../components/ReviewCard";
 import ReviewModal from "../components/ReviewModal";
-import React, { useState,useEffect } from "react";
-import { apiRoot } from "../../api/apiRoot";
-import { useLocation,useNavigate } from "react-router-dom";
-import { useUserContext } from "../context/UserContext";
+import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 
 
-const data = [
-	{
-		name: "Rahat Chowdhury",
-		rating: 5,
-		review: "omgg I saw the Weeknd and he was so gooood! The arena definitely made his vocals sound better ",
-		date: 1676163288
-	},
-	{
-		name: "Rayhan Khalid",
-		rating: 1,
-		review: "IT'S NOT BY ANY TRAINSTATIONS",
-		date: 1675212888
-	},
-	{
-		name: "Gabe Ngu",
-		rating: 2,
-		review: "Don't sit in section F it smells so bad",
-		date: 1678150488
-	},
-	{
-		name: "Topan Budiman",
-		rating: 4,
-		review: "it's aight",
-		date: 1678151792
-	},
+// const data = [
+// 	{
+// 		name: "Rahat Chowdhury",
+// 		rating: 5,
+// 		review: "omgg I saw the Weeknd and he was so gooood! The arena definitely made his vocals sound better ",
+// 		date: 1676163288
+// 	},
+// 	{
+// 		name: "Rayhan Khalid",
+// 		rating: 1,
+// 		review: "IT'S NOT BY ANY TRAINSTATIONS",
+// 		date: 1675212888
+// 	},
+// 	{
+// 		name: "Gabe Ngu",
+// 		rating: 2,
+// 		review: "Don't sit in section F it smells so bad",
+// 		date: 1678150488
+// 	},
+// 	{
+// 		name: "Topan Budiman",
+// 		rating: 4,
+// 		review: "it's aight",
+// 		date: 1678151792
+// 	},
 
 ]
 
@@ -38,6 +36,18 @@ function ReviewPage() {
 	const location = useLocation();
 	const venueId = location.state.venueId;
 	const [showModal, setShowModal] = useState(false);
+	const [data, setData] = useState([])
+
+	useEffect(() => {
+		apiRoot.get("/reviews", {
+			params: {
+				venue_id: venueId
+			}
+		})
+		.then((res) => setData(res.data))
+		.catch((err) => alert(err.response.data.detail))
+	}, [])
+
 	const toggleModal = () => {
 		setShowModal(prevState => !prevState);
 	}

@@ -32,11 +32,12 @@ def get_all_venues(db: Session):
 
 def get_venue_reviews(venue_id: int, db: Session):
     query = """
-        SELECT r.comment, r.datestamp, r.rating, v.venue_name, r.client_email, u.first_name, u.last_name
+        SELECT r.comment, r.datestamp, EXTRACT(epoch FROM datestamp) AS unix_timestamp, r.rating, u.first_name, u.last_name
         FROM review r
         INNER JOIN venue v
         ON r.venue_id = v.venue_id
-        INNER JOIN users u ON r.client_email = u.email
+        JOIN users u
+        ON r.client_email = u.email
         WHERE v.venue_id = :venue_id
     """
 
