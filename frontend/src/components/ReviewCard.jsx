@@ -2,7 +2,30 @@ import StarIcon from '@mui/icons-material/Star';
 
 function ReviewCard({name, rating, review, date}) {
 	const dateFormat = new Date(date * 1000);
-	const dateStr = dateFormat.toLocaleDateString();
+
+	function addDaySuffix(day) {
+	  if (day >= 11 && day <= 13) {
+		return day + "th";
+	  }
+	  switch (day % 10) {
+		case 1:
+		  return day + "st";
+		case 2:
+		  return day + "nd";
+		case 3:
+		  return day + "rd";
+		default:
+		  return day + "th";
+	  }
+	}
+	
+	const options = { month: 'short', day: 'numeric', year: 'numeric' };
+	const dateStr = dateFormat.toLocaleDateString('en-US', options);
+	const dayStr = addDaySuffix(dateFormat.getDate());
+	
+	const formattedDate = dateStr.replace(dayStr, dayStr + ",");
+		
+
 
 	return (  
 		<div className="flex flex-row justify-between py-6 px-4 rounded-lg shadow-lg">

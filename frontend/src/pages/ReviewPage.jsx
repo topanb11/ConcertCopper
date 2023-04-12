@@ -1,7 +1,9 @@
 import ReviewCard from "../components/ReviewCard";
 import ReviewModal from "../components/ReviewModal";
-import { useState } from "react";
-import { useLocation } from "react-router-dom";
+import React, { useState,useEffect } from "react";
+import { apiRoot } from "../../api/apiRoot";
+import { useLocation,useNavigate } from "react-router-dom";
+import { useUserContext } from "../context/UserContext";
 
 
 const data = [
@@ -34,10 +36,35 @@ const data = [
 
 function ReviewPage() {
 	const location = useLocation();
+	const venueId = location.state.venueId;
 	const [showModal, setShowModal] = useState(false);
 	const toggleModal = () => {
 		setShowModal(prevState => !prevState);
 	}
+	//const { user } = useUserContext()
+    //const navigate = useNavigate();
+    const[review, setReview] = useState([]);
+
+
+	useEffect(() => {
+		apiRoot
+			.get("/reviews/venue_id", {
+				params: { venue_id: venueId }
+		  })
+		  .then((res) => {
+			console.log(res);
+			setReview(res.data);
+		  })
+		  .catch((err) => {
+			console.log(err);
+		  });
+	  }, []);
+	
+	  function convertUnix(datestamp) {
+		return Math.floor(Date.parse(datestamp) / 1000);
+	  }
+	  
+	  
 
 	return (  
 		<div className="flex flex-col bg-dark min-h-screen text-white items-center">
@@ -56,8 +83,15 @@ function ReviewPage() {
 
 				{/* Render review cards in carousel */}
 				<div className="flex flex-col h-5/6 overflow-scroll gap-8">
-					{data.sort((a, b) => b.date - a.date).map((data, index) => (
-						<ReviewCard key={index} {...data}/>
+					{review.sort((a, b) => b.datestamp - a.datestamp).map((review) => (
+						<ReviewCard 
+						key={review.venue_id}
+                        name={`${review["first_name"]} ${review["last_name"]}`}
+                        review={review.comment}
+                        rating={review.rating}
+						date = {convertUnix(review.datestamp)}
+                        venueId={review.venue_id}
+						/>
 					))}
 				</div>
 
