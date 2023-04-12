@@ -10,11 +10,11 @@ export default function AddArtistCard({data}) {
 						<CloseIcon sx={{fontSize: 40}}/>
 					</div>
                 </div>
-                <img src={data.artist_img} className="w-full h-64 object-cover rounded-lg" alt="Image not found"/>
+                <img src={data.artist_img} className="w-full h-72 object-cover rounded-lg" alt="Image not found"/>
                 <h1 className="text-lg">{data.first_name} {data.last_name}</h1>
                 <h1 className="text-lg">{`Performing at ${data.datestamp}:00pm`}</h1>
                 <h1 className="text-lg">{`Manager: ${data.manager_first} ${data.manager_last}`}</h1>
-                <button className="w-full p-2 mt-auto bg-primary rounded-lg text-white">CONTACT MANAGER</button>
+                <a className="w-full p-2 mt-auto bg-primary rounded-lg text-white text-center cursor-pointer">CONTACT MANAGER</a>
             </div>
         </div>
     )
