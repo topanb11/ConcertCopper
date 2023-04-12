@@ -2,11 +2,11 @@
 
 ## Setting the application up
 
-In order to run the app, you need to have **Docker desktop** installed to initialize database instance as well as seed the database with the ``dockerfile`` in the main directory. Once you have Docker desktop installed, follow the steps below.
+In order to run the app, you need to have **Docker desktop** installed to initialize the database instance as well as seed the database with the ``dockerfile`` in the main directory. Once you have Docker desktop installed, follow the steps below.
 
 ## Running the application
 
-To run the application, follow each section in order to successfuly run the app.
+To run the application, follow each section in order to successfully run the app.
 
 ### 1 - Starting the database
 1. cd into main directory
