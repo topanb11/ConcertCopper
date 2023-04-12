@@ -14,7 +14,7 @@ const data = [
 	{
 		name: "Rayhan Khalid",
 		rating: 1,
-		review: "WTF IT'S NOT BY ANY TRAINSTATIONS",
+		review: "IT'S NOT BY ANY TRAINSTATIONS",
 		date: 1675212888
 	},
 	{

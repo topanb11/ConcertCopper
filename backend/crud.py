@@ -22,7 +22,7 @@ def get_performing_artists(venue_id: int, db: Session):
 
 def get_all_venues(db: Session):
     query = """
-        SELECT venue_id, venue_name, venue_location
+        SELECT venue_id, venue_name, venue_location, venue_description, venue_img
         FROM venue;
     """
     result = db.execute(text(query))
