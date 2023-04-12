@@ -30,3 +30,9 @@ class ReviewInfo(BaseModel):
     rating: int
     venue_id:int
     client_email: str
+
+class VenueInfo(BaseModel):
+    venue_name: str
+    venue_location: str
+    venue_img: str
+    venue_description: str

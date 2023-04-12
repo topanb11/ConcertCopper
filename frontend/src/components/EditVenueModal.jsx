@@ -2,8 +2,9 @@ import AddArtistCard from './AddArtistCard';
 import JB from "../assets/JB.jpeg"
 import CloseIcon from '@mui/icons-material/Close';
 import Plus from "../assets/plus-solid.svg"
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import AddArtistModal from './AddArtistModal';
+import { apiRoot } from '../../api/apiRoot';
 
 const Data = [
     {
@@ -38,10 +39,27 @@ const Data = [
 
 export default function EditVenueModal({setModal, name, venueId}) {
     const [artistModal, setArtistModal] = useState(false);
+    const [artists, setArtists] = useState()
+    useEffect(() => {
+        apiRoot.get("/admin/venues", { params:
+            {
+                venue_id: venueId
+            }
+        })
+        .then((res) => {
+            if(res.status == 200){
+                setArtists(res.data)
+            }
+        })
+        .catch((error) => {
+            console.log(error)
+        })
+    },[])
+    console.log(artists)
     return(
         <div className="flex top-0 left-0 bg-dark/90 z-50 fixed h-screen w-screen items-center justify-center">
             <div className="flex flex-col gap-5 items-center w-5/6 h-5/6 bg-white rounded-xl scroll-pl-5">
-                <div className="flex justify-between w-full my-5">
+                <div className="flex justify-between w-full mt-5">
                     <h1 className="font-bold text-3xl ml-5">
                         {name}
                     </h1>
@@ -50,7 +68,7 @@ export default function EditVenueModal({setModal, name, venueId}) {
 					</div>
                 </div>
                 <div className="flex w-full h-full overflow-x-auto scroll-p-5 snap-x">
-                    {Data.map(data => {
+                    {artists && artists.map(data => {
                         return(
                             <AddArtistCard data={data} />
                         )

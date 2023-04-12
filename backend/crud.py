@@ -10,9 +10,10 @@ from schemas import *
 
 def get_performing_artists(venue_id: int, db: Session):
     query = """
-         SELECT a.email, a.first_name, a.last_name, a.stage_name, a.manager_email
+        SELECT a.email, a.artist_img, a.first_name, a.last_name, a.stage_name, a.manager_email, s.datestamp, m.first_name as manager_first, m.last_name as manager_last
         FROM showtime s
         INNER JOIN artist a ON s.artist_email = a.email
+        INNER JOIN artist_manager m ON a.manager_email = m.email
         WHERE s.venue_id = :venue_id;
     """
     result = db.execute(text(query), {"venue_id": venue_id})
@@ -132,15 +133,16 @@ def process_order(payment_info: PaymentInfo, db: Session):
 	})
 	db.commit()
 
-def add_venue(name: str, location: str, img: str, db: Session):
+def add_venue(venue_info:VenueInfo, db: Session):
     insert_query = '''
-        INSERT INTO venue (venue_name, venue_location, venue_img)
-        VALUES (:name, :location, :img)
+        INSERT INTO venue (venue_name, venue_location, venue_img, venue_description)
+        VALUES (:name, :location, :img, :desc)
     '''
     db.execute(text(insert_query), {
-        "name": name,
-        "location": location,
-        "img": img
+        "name": venue_info.venue_name,
+        "location": venue_info.venue_location,
+        "img": venue_info.venue_img,
+        "desc": venue_info.venue_description
     })
     db.commit()
 
