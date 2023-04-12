@@ -11,7 +11,10 @@ function VenueCard({name, location, img, venueId}) {
     const {user} = useUserContext()
 
     const handleClick = (path) => {
-		navigate(`${path}/${venueId}`, {state: {venueId: venueId}});
+		navigate(`${path}/${venueId}`, {state: {
+                venueId: venueId, 
+                name: name
+        }});
 	}
 
     return (

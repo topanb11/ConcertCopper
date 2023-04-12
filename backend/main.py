@@ -67,8 +67,8 @@ def get_all_artists(venue_id: int, db: Session = Depends(get_db)):
     
 
 @app.post("/review")
-def write_review(comment: str, rating: int, venue_id:int, client_email: str, db: Session = Depends(get_db)):
-	crud.write_review(comment,rating, venue_id, client_email,db)
+def write_review(review_info: ReviewInfo, db: Session = Depends(get_db)):
+	crud.write_review(review_info, db)
 	return {"message":"Success! Review has been added."}
 
 

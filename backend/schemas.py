@@ -24,3 +24,9 @@ class UserInfo(BaseModel):
 class PaymentInfo(BaseModel):
 	user: str
 	order: List[SeatInfo]
+ 
+class ReviewInfo(BaseModel):
+    comment: str
+    rating: int
+    venue_id:int
+    client_email: str

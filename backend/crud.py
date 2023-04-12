@@ -22,7 +22,7 @@ def get_performing_artists(venue_id: int, db: Session):
 
 def get_all_venues(db: Session):
     query = """
-        SELECT venue_id, venue_name, venue_location
+        SELECT venue_id, venue_name, venue_location, venue_description, venue_img
         FROM venue;
     """
     result = db.execute(text(query))
@@ -143,17 +143,17 @@ def add_venue(name: str, location: str, img: str, db: Session):
     db.commit()
 
 
-def write_review(comment: str, rating: int, venue_id: int, client_email: str, db: Session):
+def write_review(review_info: ReviewInfo, db: Session):
     datestamp = datetime.now()
     insert_query = '''
         INSERT INTO review (comment, rating, venue_id, client_email, datestamp)
         VALUES (:comment, :rating, :venue_id, :client_email, :datestamp)
     '''
     db.execute(text(insert_query), {
-        "comment": comment,
-        "rating": rating,
-        "venue_id": venue_id,
-        "client_email": client_email,
+        "comment": review_info.comment,
+        "rating": review_info.rating,
+        "venue_id": review_info.venue_id,
+        "client_email": review_info.client_email,
         "datestamp": datestamp
     })
     db.commit()
