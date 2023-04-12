@@ -94,7 +94,7 @@ VALUES
 	('gingy@gmail.com', 'Ice', 'Spice', 'Ice Spice', 'bnguyen@gmail.com', 'https://pyxis.nymag.com/v1/imgs/339/66b/97b57ca1b6454d02f6a2fb37fb8ed69ced-Q347-RME-TheCutxIceSpice-002-05-FNL.1x.rsquare.w1400.jpg'),
 	('weeknd@gmail.com', 'Week', 'end', 'The Weeknd', 'bnguyen@gmail.com', 'https://i.scdn.co/image/ab6761610000e5ebb5f9e28219c169fd4b9e8379'),
 	('kpop@gmail.com', 'one', 'two', 'TWICE', 'bnguyen@gmail.com', 'https://s1.ticketm.net/dam/a/3a4/7c0b198a-5fc2-49ce-9e75-455518e613a4_TABLET_LANDSCAPE_LARGE_16_9.jpg'),
-	('indoman@gmail.com', 'Brian', 'Imanuel', 'Rich Brian', 'bnguyen@gmail.com', 'https://yt3.googleusercontent.com/5GTdgOUts50y6z1b9gJ2OmYrHZFO7uLIoMmA_HblQyI4X1XA_nWU0apFLwVp8KYURQNx6HbFJA=s900-c-k-c0x00ffffff-no-rj'),
+	('indoman@gmail.com', 'Brian', 'Imanuel', 'Rich Brian', 'bnguyen@gmail.com', 'https://media.pitchfork.com/photos/5a5e71370c74bb56c7af6f0d/1:1/w_450%2Cc_limit/rich-chigga-amen-cover-low-res.jpg'),
 	('warren@gmail.com', 'Warren', 'Hue', 'Warren Hue', 'bnguyen@gmail.com', 'https://i.scdn.co/image/ab6761610000e5eb4ce83e0bb702c7fec348f146'),
 	('justwannarock@gmail.com', 'Uzi', 'Vert', 'Lil Uzi Vert', 'bnguyen@gmail.com', 'https://i.scdn.co/image/ab6761610000e5eb30122c0d3ead72f96bb5ee93'),
 	('kaliii@gmail.com', 'Kali', 'Uchis', 'Kali Uchis', 'bnguyen@gmail.com', 'https://www.rollingstone.com/wp-content/uploads/2023/01/kali-uchis-new-album.jpg'),
