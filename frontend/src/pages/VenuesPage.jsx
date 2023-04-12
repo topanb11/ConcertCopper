@@ -20,16 +20,13 @@ function ClientVenuesPage() {
       }, []);
     return ( 
         <div className="bg-dark min-h-screen text-white">
-            <div className="flex flex-col justify-center gap-1 text-2xl px-12 pt-48">
+            <div className="flex flex-col justify-center gap-1 text-2xl px-12 pt-48 font-bold">
                 <h1>AVAILABLE VENUES</h1>
                 <div className="flex flex-row scrollbar-hide overflow-x-scroll gap-x-16">
                 {venues.map((venue) => (
                     <VenueCard
                         key={venue.venue_id}
-                        name={venue.venue_name}
-                        location={venue.venue_location}
-                        img={venue.venue_img}
-                        venueId={venue.venue_id}
+						{...venue}
                     />
                 ))}
                     {user.adminFlag && 

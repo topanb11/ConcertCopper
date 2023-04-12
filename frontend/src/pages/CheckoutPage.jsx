@@ -7,6 +7,7 @@ const HEADER = "text-3xl font-semibold";
 const FORM_LABEL = "text-2xl text-dark/50 font-semibold";
 const FORM_CONTAINER = "flex flex-col gap-1";
 const FORM_FIELD = "h-10 font-semibold text-lg pl-1 border-2 border-dark/50";
+const DROPDOWN = "w-1/2 h-10 text-xl appearance-none bg-dark/10 pl-4 rounded-md";
 
 function CheckoutPage() {
   const location = useLocation();
@@ -104,28 +105,22 @@ function CheckoutPage() {
         <div className="flex flex-col space-y-5 border-r-2 border-dark/20 pr-10">
           <h1 className="text-4xl font-bold">{location.state.name}</h1>
           <p className="w-[800px] text-lg">
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat. Duis aute irure dolor in
-            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-            pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-            culpa qui officia deserunt mollit anim id est laborum."
+			{location.state.description}
           </p>
           <h2 className={HEADER}>Artist</h2>
           <select
-            className="w-1/2 h-10 text-xl"
+            className={DROPDOWN}
             onChange={(e) => handleSelect(e)}
             name="artist"
           >
             <option>-- Select an Artist --</option>
             {artists.map((data, index) => {
-              return <option key={index}>{data.stageName}</option>;
+              return <option className="text-center" key={index}>{data.stageName}</option>;
             })}
           </select>
           <h2 className={HEADER}>Available Seats</h2>
           <select
-            className="w-1/2 h-fit text-xl"
+            className={`h-36 w-2/3 ${DROPDOWN}`}
             onChange={(e) => handleSelect(e)}
             name="seats"
 			multiple

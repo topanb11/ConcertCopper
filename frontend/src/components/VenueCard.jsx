@@ -5,24 +5,25 @@ import EditVenueModal from "./EditVenueModal";
 import { useNavigate } from "react-router-dom";
 
 const BUTTON_CONTAINER = "bg-primary text-white w-80 mx-auto text-xl py-3 px-3 rounded-lg hover:bg-primaryDark ease-in duration-300 font-bold"
-function VenueCard({name, location, img, venueId}) {
+function VenueCard({venue_name, venue_location, venue_img, venue_id, venue_description}) {
     const navigate = useNavigate()
     const [modal, setModal] = useState(false)
     const {user} = useUserContext()
 
     const handleClick = (path) => {
-		navigate(`${path}/${venueId}`, {state: {
-                venueId: venueId, 
-                name: name
+		navigate(`${path}/${venue_id}`, {state: {
+                venueId: venue_id, 
+                name: venue_name,
+				description: venue_description
         }});
 	}
 
     return (
         <div className="flex flex-col bg-white text-dark gap-5 rounded-lg p-5 mb-5">
-            <img className="rounded-lg w-80 h-60 object-cover" src={img}/>
+            <img className="rounded-lg w-80 h-60 object-cover" src={venue_img}/>
             <div>
-                <h2 className="font-bold">{name}</h2>
-                <h3 className="text-sm">{location}</h3>
+                <h2 className="font-bold">{venue_name}</h2>
+                <h3 className="text-sm">{venue_location}</h3>
             </div>
             {!user.adminFlag ? <div className="flex flex-col gap-3 mt-auto">
                 <button onClick={() => handleClick("/checkout")} className={BUTTON_CONTAINER}>VIEW TICKETS</button>
@@ -31,7 +32,7 @@ function VenueCard({name, location, img, venueId}) {
             <div className="flex justify-center items-center">
                 <button onClick={() => {setModal(prev => !prev)}} className={BUTTON_CONTAINER}>EDIT VENUE</button>
             </div>}
-            {modal && <EditVenueModal setModal={setModal} name={name} venueId={venueId}/>}
+            {modal && <EditVenueModal setModal={setModal} name={venue_name} venueId={venue_id}/>}
         </div>
     )
 }
