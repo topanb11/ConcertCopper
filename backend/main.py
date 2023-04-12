@@ -93,7 +93,7 @@ def add_venue(name: str, location: str, img:str, db: Session = Depends(get_db)):
 
 
 @app.post("/admin/venue/artist")
-def add_artist_to_venue(showtime: ShowtimeInfo = Depends(), db: Session = Depends(get_db)):
+def add_artist_to_venue(showtime: ShowtimeInfo, db: Session = Depends(get_db)):
 	crud.add_artist(showtime, db)
 	return {"message": "Success! An artist has been added to the venue."}
 
@@ -104,3 +104,8 @@ def get_performing_artists(venue_id:int, db:Session = Depends(get_db)):
 	if not get_artist:
 			raise HTTPException(status_code=410,detail="Please enter in an existing venue")
 	return get_artist
+
+@app.get("/artists")
+def get_artists(db:Session = Depends(get_db)):
+    result = crud.all_artists(db)
+    return result

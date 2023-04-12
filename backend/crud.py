@@ -202,14 +202,37 @@ def get_venue_artists(venue_id: int, db: Session):
 
 def add_artist(showtime: ShowtimeInfo, db: Session):
     insert_query = '''
+    WITH inserted_showtime AS(   
         INSERT INTO showtime (venue_id, datestamp, artist_email)
         VALUES (:venue_id, :datestamp, :artist_email)
+        RETURNING showtime_id
+    )
+    INSERT INTO seat (seat_name, price, order_id, showtime_id)
+    VALUES
+        ('1A', 400, null, (SELECT showtime_id FROM inserted_showtime)),
+        ('1B', 400, null, (SELECT showtime_id FROM inserted_showtime)),
+        ('1C', 400, null, (SELECT showtime_id FROM inserted_showtime)),
+        ('2A', 250, null, (SELECT showtime_id FROM inserted_showtime)),
+        ('2B', 250, null, (SELECT showtime_id FROM inserted_showtime)),
+        ('2C', 250, null, (SELECT showtime_id FROM inserted_showtime)),
+        ('3A', 150, null, (SELECT showtime_id FROM inserted_showtime)),
+        ('3B', 150, null, (SELECT showtime_id FROM inserted_showtime)),
+        ('3C', 150, null, (SELECT showtime_id FROM inserted_showtime))
     '''
     converted_timestamp = datetime.fromtimestamp(showtime.timestamp)
 
     db.execute(text(insert_query), {
         "venue_id": showtime.venue_id,
         "datestamp": converted_timestamp,
-        "artist_email": showtime.artist_email
+        "artist_email": showtime.artist_email,
     })
     db.commit()
+
+def all_artists(db:Session):
+    insert_query = '''
+        SELECT stage_name, email
+        FROM artist
+    '''
+    result = db.execute(text(insert_query))
+    columns = result.keys()
+    return[dict(zip(columns,row)) for row in result]
