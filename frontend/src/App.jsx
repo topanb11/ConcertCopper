@@ -2,7 +2,7 @@ import { React, useState, createContext, useMemo } from "react";
 import Navbar from "./components/Navbar";
 import { Routes, Route, BrowserRouter } from "react-router-dom";
 import HomePage from "./pages/HomePage";
-import ClientVenuesPage from "./pages/ClientVenuesPage";
+import VenuesPage from "./pages/VenuesPage";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import CheckoutPage from "./pages/CheckoutPage";
@@ -17,7 +17,7 @@ const App = () => {
 					<Navbar/>
 					<Routes>
 						<Route path="/" element={<HomePage/>}/>
-						<Route path="/venues" element={<ClientVenuesPage/>}/>
+						<Route path="/venues" element={<VenuesPage/>}/>
 						<Route path="/login" element={<LoginPage/>}/>
 						<Route path="/register" element={<RegisterPage/>}/>
 						<Route path="/checkout/:venueId" element={<CheckoutPage/>}/>
