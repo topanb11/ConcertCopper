@@ -34,7 +34,7 @@ def get_venue_reviews(venue_id: int, db: Session):
     query = """
         SELECT r.comment, r.datestamp, EXTRACT(epoch FROM datestamp) AS unix_timestamp, r.rating, u.first_name, u.last_name
         FROM review r
-        INNER JOIN venue v
+        JOIN venue v
         ON r.venue_id = v.venue_id
         JOIN users u
         ON r.client_email = u.email

@@ -66,24 +66,24 @@ def get_all_artists(venue_id: int, db: Session = Depends(get_db)):
 	return crud.get_venue_artists(venue_id, db)
     
 
-@app.post("/review")
+@app.post("/add/review")
 def write_review(review_info: ReviewInfo, db: Session = Depends(get_db)):
 	crud.write_review(review_info, db)
 	return {"message":"Success! Review has been added."}
+
+
+@app.get("/review")
+def get_venue_reviews(venue_id: int, db:Session=Depends(get_db)):
+	get_reviews = crud.get_venue_reviews(venue_id, db)
+	if not get_reviews:
+			raise HTTPException(status_code = 410, detail = "No reviews for this venue.")
+	return get_reviews
 
 
 @app.post("/checkout")
 def process_order(payment_info: PaymentInfo, db: Session = Depends(get_db)):
 	crud.process_order(payment_info, db)
 	return {"message": "Success! Your payment has been processed."}
-
-
-@app.get("/reviews")
-def get_venue_reviews(venue_id: int, db:Session=Depends(get_db)):
-	get_reviews = crud.get_venue_reviews(venue_id, db)
-	if not get_reviews:
-			raise HTTPException(status_code = 410, detail = "No reviews for this venue.")
-	return get_reviews
 
 
 @app.post("/admin/venue")

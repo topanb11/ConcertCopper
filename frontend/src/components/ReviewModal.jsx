@@ -1,24 +1,20 @@
 import { useState } from "react";
 import CloseIcon from '@mui/icons-material/Close';
 import { apiRoot } from "../../api/apiRoot";
-import axios from "axios";
 import { useNavigate, useLocation } from "react-router-dom";
-import { useUserContext } from "../context/UserContext";
 
 const FORM_LABEL = "font-semibold text-xl";
 const FORM_CONTAINER = "pl-2 border-2 border-dark/50 h-10";
 
-function ReviewModal({ toggleModal }) {
+function ReviewModal({ toggleState, fetch, modal}) {
 	const location = useLocation();
 	const venueId = location.state.venueId;
-	//const navigate = useNavigate();
 	const [review, setReview] = useState({
-		name: "",
+		email: "",
 		comment: "",
 		rating: 0
 	});
 
-	const navigate = useNavigate();
 	const handleChange = (e) => {
 		setReview(prevState => {
 			return {
@@ -29,21 +25,17 @@ function ReviewModal({ toggleModal }) {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		apiRoot.post("/review", {
+		apiRoot.post("/add/review", {
 			rating: review.rating,
-			client_email: review.name,
+			client_email: review.email,
 			comment: review.comment,
 			venue_id: venueId
 		})
-		.then((res) => {
-			console.log(res.review)
-			alert(res.data.message);
-			console.log(review);
+		.then(() => {
+			toggleState(modal);
+			toggleState(fetch);
 		})
-		.catch((error) => {
-			console.log(error);
-		});
-		
+		.catch((error) => console.log(error));
 	};
 
 
@@ -54,7 +46,7 @@ function ReviewModal({ toggleModal }) {
 			<div className="bg-white w-4/6 h-4/6 text-dark px-8 py-3">
 				<div className="flex flex-row justify-between items-center">
 					<h1 className="font-bold text-3xl">ADD A REVIEW</h1>
-					<div onClick={() => toggleModal()} className="hover:cursor-pointer">
+					<div onClick={() => toggleState(modal)} className="hover:cursor-pointer">
 						<CloseIcon sx={{fontSize: 40}}/>
 					</div>
 				</div>
@@ -63,7 +55,7 @@ function ReviewModal({ toggleModal }) {
 						<label className={FORM_LABEL}>Rating</label>
 						<input name="rating" type="Number" className={`${FORM_CONTAINER} w-1/6`} max={5} min={0} onChange={(e) => handleChange(e)}/>
 						<label className={FORM_LABEL}>Email</label>
-						<input name="name" placeholder="Name" type="text" className={`${FORM_CONTAINER} w-2/6`} onChange={(e) => handleChange(e)}/>
+						<input name="email" placeholder="Email" type="text" className={`${FORM_CONTAINER} w-2/6`} onChange={(e) => handleChange(e)}/>
 						<label className={FORM_LABEL}>Review</label>
 						<textarea name="comment" placeholder="Your review!" type="text" className={`${FORM_CONTAINER} h-48 pt-2`} onChange={(e) => handleChange(e)}/>
 					</form>
