@@ -102,7 +102,7 @@ function CheckoutPage() {
     <div className="flex flex-col bg-dark min-h-screen text-white items-center">
       <div className="flex flex-row bg-white w-11/12 h-2/3 text-dark py-10 px-10 mt-40">
         <div className="flex flex-col space-y-5 border-r-2 border-dark/20 pr-10">
-          <h1 className="text-4xl font-bold">Venue Name</h1>
+          <h1 className="text-4xl font-bold">{location.state.name}</h1>
           <p className="w-[800px] text-lg">
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
             eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
