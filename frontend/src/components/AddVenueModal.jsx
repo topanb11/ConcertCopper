@@ -39,7 +39,7 @@ export default function AddVenueModal({setVenueModal, setFetch}) {
                     <form onSubmit={submitHandler} className="w-full">
                         <label className={LABEL}>Venue Name</label>
                         <input
-                            name="venueName"
+                            name="venue_name"
                             type="text"
                             placeholder="Venue Name"
                             className={INPUT_FIELD}
@@ -47,7 +47,7 @@ export default function AddVenueModal({setVenueModal, setFetch}) {
                         ></input>
                         <label className={LABEL}>Location</label>
                         <input
-                            name="location"
+                            name="venue_location"
                             type="text"
                             placeholder="Location"
                             className={INPUT_FIELD}
@@ -55,7 +55,7 @@ export default function AddVenueModal({setVenueModal, setFetch}) {
                         ></input>
                         <label className={LABEL}>Image</label>
                         <input
-                            name="img"
+                            name="venue_img"
                             type="text"
                             placeholder="Image"
                             className={INPUT_FIELD}
@@ -63,7 +63,7 @@ export default function AddVenueModal({setVenueModal, setFetch}) {
                         ></input>
                         <label className={LABEL}>Description</label>
                         <input
-                            name="desc"
+                            name="venue_description"
                             type="text"
                             placeholder="Description"
                             className={INPUT_FIELD}

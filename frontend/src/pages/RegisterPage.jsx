@@ -88,7 +88,7 @@ function RegisterPage() {
         <label className={LABEL}>Password</label>
         <input
           name="password"
-          type="text"
+          type="password"
           placeholder="Password"
           className={INPUT_FIELD}
           onChange={handler}

@@ -14,7 +14,6 @@ function ClientVenuesPage() {
         apiRoot
           .get("/venues")
           .then((res) => {
-            console.log(res);
             setVenues(res.data);
           })
           .catch((err) => {

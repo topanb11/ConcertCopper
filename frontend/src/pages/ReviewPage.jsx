@@ -12,6 +12,7 @@ function ReviewPage() {
 	const [data, setData] = useState([])
 
 	useEffect(() => {
+		console.log(venueId)
 		apiRoot.get("/review", {
 			params: {
 				venue_id: venueId

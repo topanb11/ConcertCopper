@@ -75,6 +75,7 @@ def write_review(review_info: ReviewInfo, db: Session = Depends(get_db)):
 @app.get("/review")
 def get_venue_reviews(venue_id: int, db:Session=Depends(get_db)):
 	get_reviews = crud.get_venue_reviews(venue_id, db)
+	print(venue_id)
 	if not get_reviews:
 			raise HTTPException(status_code = 410, detail = "No reviews for this venue.")
 	return get_reviews
