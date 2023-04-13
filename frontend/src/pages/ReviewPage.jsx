@@ -16,8 +16,10 @@ function ReviewPage() {
 	}, [])
 
 	useEffect(() => {
-		fetchData();
-		setFetch(false);
+		if (fetch) {
+			fetchData();
+			setFetch(false);
+		}
 	}, [fetch])
 
 	function fetchData() {
