@@ -3,6 +3,7 @@ import Logo from "../assets/ConcertCopper.png";
 import CloseIcon from '@mui/icons-material/Close';
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../context/UserContext";
+import { apiRoot } from "../../api/apiRoot";
 
 const NAVBAR_HEADER = "text-2xl font-semibold hover:cursor-pointer hover:text-dark ease-in duration-300";
 
@@ -12,10 +13,11 @@ const Navbar = () => {
     const [modal, setModal] = useState(false);
     const [form, setform] = useState({
         email: "",
-        first: "",
-        last: "",
-        stage: "",
-        manager: ""
+        first_name: "",
+        last_name: "",
+        stage_name: "",
+        manager_email: "",
+        artist_img: ""
       });
 	const handleClick = (path) => {
 		navigate(path);
@@ -33,8 +35,21 @@ const Navbar = () => {
         setUser((prev) => { return {...prev, signedIn: false, adminFlag: false}});
         navigate("/");
     }
+    function submitHandler(event){
+        event.preventDefault();
+        apiRoot.post("/artist", form)
+        .then((res) => {
+            if(res.status == 200){
+                console.log("Success") 
+            }
+        })
+        .catch((error) => {
+            console.log(error)
+        })
+        setModal(prev => !prev)
+    }
     const LABEL = "block text-dark/50 font-semibold text-2xl";
-    const INPUT_FIELD = "rounded-md pl-3 h-14 w-full border-solid border-2 border-dark/50 mb-4 text-lg";
+    const INPUT_FIELD = "rounded-md pl-3 h-12 w-full border-solid border-2 border-dark/50 mb-2 text-lg";
 
 	return (
 		<div className="fixed bg-primary flex flex-row w-screen text-white justify-between items-center px-10 py-2 rounded-b-lg">
@@ -58,7 +73,7 @@ const Navbar = () => {
                         <div onClick={() => setModal(prev => !prev)} className="absolute top-8 right-8 hover:cursor-pointer text-dark">
                             <CloseIcon sx={{fontSize: 40}}/>
                         </div>
-                        <form className="flex flex-col justify-center w-full h-full" onSubmit={() => {}}>
+                        <form className="flex flex-col justify-center w-full h-full text-dark" onSubmit={submitHandler}>
                             <label className={LABEL}>Email</label>
                             <input
                                 name="email"
@@ -69,7 +84,7 @@ const Navbar = () => {
                             ></input>
                             <label className={LABEL}>First Name</label>
                             <input
-                                name="first"
+                                name="first_name"
                                 type="text"
                                 placeholder="First Name"
                                 className={INPUT_FIELD}
@@ -77,7 +92,7 @@ const Navbar = () => {
                             ></input>
                             <label className={LABEL}>Last Name</label>
                             <input
-                                name="last"
+                                name="last_name"
                                 type="text"
                                 placeholder="Last Name"
                                 className={INPUT_FIELD}
@@ -85,7 +100,7 @@ const Navbar = () => {
                             ></input>
                             <label className={LABEL}>Stage Name</label>
                             <input
-                                name="stage"
+                                name="stage_name"
                                 type="text"
                                 placeholder="Stage Name"
                                 className={INPUT_FIELD}
@@ -93,15 +108,22 @@ const Navbar = () => {
                             ></input>
                             <label className={LABEL}>Manager Email</label>
                             <input
-                                name="manager"
+                                name="manager_email"
                                 type="text"
                                 placeholder="Manager Email"
                                 className={INPUT_FIELD}
                                 onChange={handler}
                             ></input>
+                            <label className={LABEL}>Image</label>
+                            <input
+                                name="artist_img"
+                                type="text"
+                                placeholder="Image"
+                                className={INPUT_FIELD}
+                                onChange={handler}
+                            ></input>
                             <button
-                                className="h-14 w-full bg-primary rounded-md text-white text-2xl pl-3 hover:bg-primaryDark transition"
-                                onClick={(e) => handleSubmit(e)}
+                                className="h-12 w-full bg-primary rounded-md text-white text-2xl pl-3 hover:bg-primaryDark mt-2 transition"
                             >Add</button>  
                         </form>
                     </div>

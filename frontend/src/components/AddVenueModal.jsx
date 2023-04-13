@@ -2,7 +2,7 @@ import { useState } from "react";
 import CloseIcon from '@mui/icons-material/Close';
 import { apiRoot } from "../../api/apiRoot";
 
-export default function AddVenueModal({setVenueModal}) {
+export default function AddVenueModal({setVenueModal, setFetch}) {
     const LABEL = "block text-dark/50 font-semibold text-2xl";
     const INPUT_FIELD = "rounded-md pl-3 h-14 w-full border-solid border-2 border-dark/50 mb-4 text-lg";
     const [venueForm, setVenueForm] = useState({venue_name:"", venue_location:"", venue_img:"", venue_description:""})
@@ -25,6 +25,7 @@ export default function AddVenueModal({setVenueModal}) {
         .catch((error) => {
             console.log(error)
         })
+        setFetch(prev => !prev)
         setVenueModal(prev => !prev)
     }
     return(

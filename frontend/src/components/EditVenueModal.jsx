@@ -6,41 +6,11 @@ import { useEffect, useState } from 'react';
 import AddArtistModal from './AddArtistModal';
 import { apiRoot } from '../../api/apiRoot';
 
-const Data = [
-    {
-        stageName: "Justin Bieber",
-        name: "Justin Bieber",
-        image: JB,
-        time: "6",
-        manager: "Brian Nguyen"
-    },
-    {
-        stageName: "Justin Bieber",
-        name: "Justin Bieber",
-        image: JB,
-        time: "6",
-        manager: "Brian Nguyen"
-    },
-    {
-        stageName: "Justin Bieber",
-        name: "Justin Bieber",
-        image: JB,
-        time: "6",
-        manager: "Brian Nguyen"
-    },
-    {
-        stageName: "Justin Bieber",
-        name: "Justin Bieber",
-        image: JB,
-        time: "6",
-        manager: "Brian Nguyen"
-    }
-]
-
 export default function EditVenueModal({setModal, name, venueId}) {
     const [artistModal, setArtistModal] = useState(false);
     const [artists, setArtists] = useState()
     const [sortedArtists, setSortedArtists] = useState()
+    const [fetch, setFetch] = useState(false)
     useEffect(() => {
         apiRoot.get("/admin/venues", { params:
             {
@@ -55,7 +25,7 @@ export default function EditVenueModal({setModal, name, venueId}) {
         .catch((error) => {
             console.log(error)
         })
-    },[])
+    },[fetch])
     useEffect(() => {
         let sorted = artists && artists.sort(
             (a1,a2) => ((new Date(a1.datestamp).getTime()/1000) > (new Date(a2.datestamp).getTime()/1000) ? 1 :
@@ -77,7 +47,7 @@ export default function EditVenueModal({setModal, name, venueId}) {
                 <div className="flex w-full h-full overflow-x-scroll scroll-p-5 snap-x r">
                     {sortedArtists && sortedArtists.map(data => {
                         return(
-                            <AddArtistCard data={data} />
+                            <AddArtistCard data={data} setFetch={setFetch}/>
                         )
                     })}
                     <div onClick={() => setArtistModal(prev => !prev)} className="snap-center bg-white text-dark rounded-lg p-5 shadow-lg h-[95%] hover:bg-[#DDDDDD] ml-5 mr-5 cursor-pointer">
@@ -88,7 +58,7 @@ export default function EditVenueModal({setModal, name, venueId}) {
                     </div>
                 </div>
             </div>
-            {artistModal && <AddArtistModal setArtistModal={setArtistModal} venueId={venueId}/>}
+            {artistModal && <AddArtistModal setArtistModal={setArtistModal} venueId={venueId} setFetch={setFetch}/>}
         </div>
     )
 };
