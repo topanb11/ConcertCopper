@@ -32,7 +32,7 @@ cd backend
 ```
 2. create a python virtual environment to run all the necessary packages
 ```
-python -m venv venv
+python3.10 -m venv venv
 ```
 3. activate the virtual environment depending if you're on mac or windows
 
