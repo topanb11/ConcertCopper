@@ -1,10 +1,9 @@
-import datetime
+import datetime as dt
 from sqlalchemy.sql import text
 from sqlalchemy.orm import Session
 import models
 from sqlalchemy.exc import SQLAlchemyError
 import time
-# import datetime
 
 from schemas import *
 
@@ -225,7 +224,7 @@ def add_artist(showtime: ShowtimeInfo, db: Session):
         ('3B', 150, null, (SELECT showtime_id FROM inserted_showtime)),
         ('3C', 150, null, (SELECT showtime_id FROM inserted_showtime))
     '''
-    converted_timestamp = datetime.fromtimestamp(showtime.timestamp)
+    converted_timestamp = dt.datetime.fromtimestamp(showtime.timestamp)
 
     db.execute(text(insert_query), {
         "venue_id": showtime.venue_id,
