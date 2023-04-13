@@ -81,7 +81,7 @@ VALUES
 	('gabe@gmail.com', 'test', 'Gabe', 'Ngu', false),
 	('rahat@gmail.com', 'test', 'Rahat', 'Chowdhury', false),
 	('rayhan@gmail.com', 'test', 'Rayhan', 'Khalid', false),
-	('jt@gmail.com', 'test', 'Joshua', 'Toletino', false);
+	('jt@gmail.com', 'test', 'Joshua', 'Tolentino', false);
 
 INSERT INTO artist_manager (email, first_name, last_name, record_label)
 VALUES
