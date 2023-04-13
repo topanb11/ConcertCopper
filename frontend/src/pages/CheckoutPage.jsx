@@ -66,12 +66,14 @@ function CheckoutPage() {
 	user: user.user.signedIn ? user.user.email : checkout.email,
 	order: selected
 	})
+	.then(() => {
+		alert(
+		  `Your order has been processed ${
+			user.user.signedIn ? user.user.firstName : checkout.firstName
+		  }. Enjoy your show!`
+		);
+	})
 	.catch((err) => console.log(err))
-    alert(
-      `Your order has been processed ${
-        user.signedIn ? user.user.firstName : checkout.firstName
-      }. Enjoy your show!`
-    );
   };
 
   function filterArtistSeats(name) {
