@@ -12,6 +12,15 @@ function ReviewPage() {
 	const [data, setData] = useState([])
 
 	useEffect(() => {
+		fetchData();
+	}, [])
+
+	useEffect(() => {
+		fetchData();
+		setFetch(false);
+	}, [fetch])
+
+	function fetchData() {
 		apiRoot.get("/review", {
 			params: {
 				venue_id: venueId
@@ -19,22 +28,7 @@ function ReviewPage() {
 		})
 		.then((res) => setData(res.data))
 		.catch((err) => console.log(err))
-	}, [])
-
-	useEffect(() => {
-		if (fetch) {
-			apiRoot.get("/review", {
-				params: {
-					venue_id: venueId
-				}
-			})
-			.then((res) => {
-				setData(res.data);
-				setFetch(false);
-			})
-			.catch((err) => console.log(err))
-		}
-	}, [fetch])
+	}
 
 	function toggleState(setterFunc) {
 		setterFunc(prevState => !prevState)
