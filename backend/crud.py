@@ -3,7 +3,7 @@ from sqlalchemy.sql import text
 from sqlalchemy.orm import Session
 import models
 from sqlalchemy.exc import SQLAlchemyError
-from datetime import datetime
+import time
 
 from schemas import *
 
@@ -149,17 +149,17 @@ def add_venue(venue_info:VenueInfo, db: Session):
 
 
 def write_review(review_info: ReviewInfo, db: Session):
-    datestamp = datetime.now()
+    curr_time = int(time.time())
     insert_query = '''
         INSERT INTO review (comment, rating, venue_id, client_email, datestamp)
-        VALUES (:comment, :rating, :venue_id, :client_email, :datestamp)
+        VALUES (:comment, :rating, :venue_id, :client_email, to_timestamp(:unix_timestamp))
     '''
     db.execute(text(insert_query), {
         "comment": review_info.comment,
         "rating": review_info.rating,
         "venue_id": review_info.venue_id,
         "client_email": review_info.client_email,
-        "datestamp": datestamp
+        "unix_timestamp": curr_time
     })
     db.commit()
 
