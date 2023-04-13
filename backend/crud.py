@@ -4,6 +4,7 @@ from sqlalchemy.orm import Session
 import models
 from sqlalchemy.exc import SQLAlchemyError
 import time
+# import datetime
 
 from schemas import *
 
@@ -166,7 +167,7 @@ def write_review(review_info: ReviewInfo, db: Session):
 
 def get_venue_artists(venue_id: int, db: Session):
     query = '''
-    SELECT a.stage_name, s.datestamp, seat.seat_name, seat.price, seat.seat_id
+    SELECT a.stage_name, EXTRACT(epoch FROM s.datestamp), seat.seat_name, seat.price, seat.seat_id
     FROM artist a 
     JOIN showtime s
         ON a.email = s.artist_email
@@ -182,7 +183,7 @@ def get_venue_artists(venue_id: int, db: Session):
         curr_artist = row[0]
         if curr_artist == prev_artist:
             seats.append({
-                "datestamp": datetime.timestamp(row[1]),
+                "datestamp": row[1],
                 "seatName": row[2],
                 "price": row[3],
                 "seatId": row[4]
